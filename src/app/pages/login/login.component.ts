@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  correo:string = "";
+  clave:string = "";
+
+  cargando:boolean = false;
+
+  logueado:boolean = false;
+
+  error: string = "";
+
+  constructor( public _usuario:UsuarioService ) { }
 
   ngOnInit() {
+  }
+
+  loginClick(){
+
+    this.cargando = true;
+    
+    this._usuario.login( this.correo, this.clave ).then( (resp:boolean) => {
+
+      if (resp){
+        this.logueado = true;
+        this.error = "";
+
+      } else {
+        // error en el registro
+        this.error = "Correo o contraseña incorrecta."
+      }
+
+      this.cargando = false;
+    });
+
   }
 
 }

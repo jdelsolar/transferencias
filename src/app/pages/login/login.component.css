@@ -5,3 +5,7 @@
     border-style: solid;
     padding: 1rem;
 }
+
+div.container {
+    min-height: 600px;
+}
