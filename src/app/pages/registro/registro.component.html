@@ -1,0 +1,46 @@
+<div class="container">
+
+
+  <div class="registro" *ngIf="!registrado">
+    <h2>Registro de Usuario</h2>
+    <div class="form-group ">
+      <label>Correo electrónico</label>
+      <input type="email" class="form-control " placeholder="Ingrese Correo" [(ngModel)]="usuario.correo" >
+    </div>
+    <div class="form-group "> 
+      <label>Contraseña</label>
+      <input type="password" class="form-control " placeholder="Contraseña" [(ngModel)]="usuario.clave" >
+    </div>
+    <hr>
+    <div class="form-group ">
+      <label>Apellido paterno</label>
+      <input type="text" class="form-control " placeholder="Apellido paterno" [(ngModel)]="usuario.paterno" >
+    </div>
+    <div class="form-group ">
+      <label>Apellido materno</label>
+      <input type="text" class="form-control " placeholder="Apellido materno" [(ngModel)]="usuario.materno" >
+    </div>
+    <div class="form-group ">
+      <label>Nombres</label>
+      <input type="text" class="form-control " placeholder="Nombres" [(ngModel)]="usuario.nombres" >
+    </div>
+    <div class="form-group ">
+      <label>Pais</label>
+      <select class="form-control" [(ngModel)]="usuario.pais" >
+        <option value="Chile">Chile</option>
+        
+      </select>
+    </div>
+    <button class="btn btn-success " (click)="guardar_usuario()" [ngClass]="valido()" >{{ (!cargando ? 'Registrar' : 'Cargando ...' ) }}</button>
+
+  </div>
+
+  <div class="registro" *ngIf="registrado">
+
+    <h2>Se ha completado su registro</h2>
+
+  </div>
+
+
+
+</div>
