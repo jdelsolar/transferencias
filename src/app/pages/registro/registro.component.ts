@@ -17,13 +17,20 @@ export class RegistroComponent implements OnInit {
 
   guardar_usuario() {
     this.cargando = true;
-    this._usuario.guardarUsuario(this.usuario).subscribe((resp: any) => {
-      if (resp.respuesta) {
-        this.registrado = true;
+    this._usuario.guardarUsuario(this.usuario).subscribe(
+      (resp: any) => {
+        if (resp.respuesta) {
+          this.registrado = true;
+          this.cargando = false;
+          console.log(resp);
+        }
+      },
+      err => {
+        this.registrado = false;
         this.cargando = false;
-        console.log(resp);
+        console.log(err);
       }
-    });
+    );
   }
 
   valido() {

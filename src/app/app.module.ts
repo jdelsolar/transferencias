@@ -10,6 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
+import { CompaniaComponent } from './pages/compania/compania.component';
+import { ComoComponent } from './pages/como/como.component';
+import { ContactoComponent } from './pages/contacto/contacto.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    CompaniaComponent,
+    ComoComponent,
+    ContactoComponent
   ],
   imports: [
     BrowserModule,
