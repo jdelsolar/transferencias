@@ -38,7 +38,11 @@ export class LoginComponent implements OnInit {
       }
 
       this.cargando = false;
-    });
+    }).catch( err => {
+      this.error = "Error de conexión";
+
+      this.cargando = false;
+    }) ;
 
   }
 

@@ -42,7 +42,10 @@ export class UsuarioService {
           
         }
 
-      });
+      }, err => {
+        reject(err);
+      }
+    );
 
     });
 

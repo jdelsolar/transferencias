@@ -31,7 +31,7 @@
         
       </select>
     </div>
-    <button class="btn btn-success " (click)="guardar_usuario()" [ngClass]="valido()" >{{ (!cargando ? 'Registrar' : 'Cargando ...' ) }}</button>
+    <button class="btn btn-success " (click)="guardar_usuario()" [disabled]="valido()" >{{ (!cargando ? 'Registrar' : 'Cargando ...' ) }}</button>
 
   </div>
 
