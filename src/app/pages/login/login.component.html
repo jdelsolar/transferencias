@@ -1,7 +1,7 @@
 <div class="container"> 
 
 
-  <div class="login" *ngIf="!logueado">
+  <div class="login" *ngIf="!_usuario.usuario.id_usuario">
     <h2>Ingrese</h2>
     <div class="alert alert-dismissible alert-danger" *ngIf="error">
       {{ error }}
@@ -19,7 +19,7 @@
     </button>
   </div>
 
-  <div class="logueado" *ngIf="logueado">
+  <div class="logueado" *ngIf="_usuario.usuario.id_usuario">
     <h2>
       Bienvenido!
     </h2>

@@ -1,0 +1,69 @@
+<div class="container principal " *ngIf="!_usuario.usuario.id_usuario">
+
+  <h2>
+    Registrate
+  </h2>
+  <p>
+    Para realizar transferencias debes estar registrado. Si ya estás registrado <a routerLink="login">ingresa acá</a>
+  </p>
+
+</div>
+
+<div class="container principal" *ngIf="_usuario.usuario.id_usuario">
+  <h3>Abono a tu cuenta</h3>
+  <p>
+    Debes realizar un depósito en la siguiente cuenta y luego adjuntanos tu depósito.
+  </p>
+  <p>Para transferencia electrónica:</p>
+  <div class="alert alert-dismissible alert-primary">
+    Nombre empresa: TECNOSEG <br> Rut: 76.145.716-0 <br> Banco: BCI empresas <br> Cuenta: Corriente <br> N° de cuenta: 54005078
+    <br> Correo: abonos@123depositos.com <br>
+
+  </div>
+  <p>O depositos en caja en sucursales BCI (<a href="https://www.bci.cl/personas/sucursales" target="_blank">Ver sucursales
+      más cercanas</a>)</p>
+
+
+  <div class="form-group">
+    <label>Monto transferido</label>
+    <input type="text" class="form-control" placeholder="Monto" [(ngModel)]="pesos" (keypress)="calcular()">
+  </div>
+  <div class="form-group">
+    <label>Tasa de conversión</label>
+    <input type="text" class="form-control" placeholder="Tasa" disabled="disabled" [(ngModel)]="tasa">
+  </div>
+  <div class="form-group">
+    <label></label>
+    <input type="text" class="form-control" placeholder="" disabled="disabled" [(ngModel)]="bolivares">
+  </div>
+
+  <h3>
+    Datos destinatario:
+  </h3>
+  <div class="login">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" class="form-control" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <label>Pais</label>
+      <input type="text" class="form-control" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <label>Banco</label>
+      <input type="text" class="form-control" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <label>Cuenta</label>
+      <input type="text" class="form-control" placeholder="Nombre">
+    </div>
+    <div class="form-group">
+      <label>Correo</label>
+      <input type="text" class="form-control" placeholder="Nombre">
+    </div>
+    <button type="button" class="btn btn-primary">Transferir</button>
+  </div>
+
+
+
+</div>

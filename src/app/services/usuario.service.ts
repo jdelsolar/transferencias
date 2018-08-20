@@ -15,7 +15,16 @@ export class UsuarioService {
 
   constructor( private http: HttpClient ) { 
 
+    if ( localStorage.getItem('usuario') ) {
+      this.usuario = JSON.parse( localStorage.getItem('usuario') );
+    }
 
+  }
+
+  private guardarStorage(){
+    if ( this.usuario ){
+      localStorage.setItem( 'usuario', JSON.stringify(this.usuario) );
+    }
   }
 
   guardarUsuario( usuario: Usuario ){
@@ -35,6 +44,7 @@ export class UsuarioService {
         if ( resp.respuesta ) {
           console.log( JSON.stringify(resp.usuario) );
           this.usuario = resp.usuario;
+          this.guardarStorage();
 
           resolve( true );
         } else {

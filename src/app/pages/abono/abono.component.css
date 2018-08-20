@@ -1,0 +1,13 @@
+.principal {
+    min-height: 600px;
+    max-width: 600px;
+}
+
+
+.login {
+    max-width: 600px;
+    border-color: #35a6e88a;
+    border-width: medium;
+    border-style: solid;
+    padding: 1rem;
+}

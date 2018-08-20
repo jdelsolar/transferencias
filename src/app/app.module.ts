@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { CompaniaComponent } from './pages/compania/compania.component';
 import { ComoComponent } from './pages/como/como.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { AbonoComponent } from './pages/abono/abono.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
     LoginComponent,
     CompaniaComponent,
     ComoComponent,
-    ContactoComponent
+    ContactoComponent,
+    AbonoComponent
   ],
   imports: [
     BrowserModule,
