@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
+import { TransferenciasService } from '../../services/transferencias.service';
 
 @Component({
   selector: 'app-abono',
@@ -11,8 +12,11 @@ export class AbonoComponent implements OnInit {
   pesos: number = 0 ;
   tasa: number = 371;
   bolivares:number = 0;
+  gastos:number = 1000;
 
-  constructor( public _usuario:UsuarioService ) { }
+  transferi: boolean = false;
+
+  constructor( public _usuario:UsuarioService, public _transferencias: TransferenciasService ) { }
 
   ngOnInit() {
 
@@ -20,7 +24,7 @@ export class AbonoComponent implements OnInit {
 
   calcular() {
 
-    this.bolivares =  this.pesos * this.tasa;
+    this.bolivares =  this.pesos * this.tasa + this.gastos;
     
   }
 

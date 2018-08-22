@@ -1,7 +1,7 @@
 <div class="container">
 
 
-  <div class="registro" *ngIf="!registrado">
+  <div class="registro" *ngIf="!_usuario.usuario.id_usuario">
     <h2>Registro de Usuario</h2>
     <div class="form-group ">
       <label>Correo electrónico</label>
@@ -35,7 +35,7 @@
 
   </div>
 
-  <div class="registro" *ngIf="registrado">
+  <div class="registro" *ngIf="_usuario.usuario.id_usuario">
 
     <h2>Se ha completado su registro</h2>
 

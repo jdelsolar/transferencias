@@ -21,6 +21,11 @@ export class UsuarioService {
 
   }
 
+  public cerrarSession(){
+    this.usuario = {};
+    localStorage.clear();
+  }
+
   private guardarStorage(){
     if ( this.usuario ){
       localStorage.setItem( 'usuario', JSON.stringify(this.usuario) );

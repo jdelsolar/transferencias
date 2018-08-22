@@ -20,5 +20,16 @@
     <script src="assets/js/jquery-3.3.1.min.js" ></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
     <script src="assets/js/bootstrap.min.js" ></script>
+
+    <script>
+      $(document).ready(function () {
+    
+        $('ul.navbar-nav>li.nav-item:not(.dropdown-toggle)').on('click', function () {
+          $('.navbar-collapse').collapse('hide');
+        });
+    
+      });
+    </script>
+
   </body>
 </html>

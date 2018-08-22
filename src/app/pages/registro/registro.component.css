@@ -6,3 +6,6 @@
     padding: 1rem;
     
 }
+.container {
+    min-height: 600px;
+}
