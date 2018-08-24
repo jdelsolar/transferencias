@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 
+declare function init_collapse();
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor( public _usuario:UsuarioService ) { }
 
   ngOnInit() {
+    init_collapse();
   }
 
   loginClick(){
