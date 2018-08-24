@@ -20,7 +20,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="transferencias">Transferencias <span class="caret"></span></a>
           <div class="dropdown-menu" aria-labelledby="transferencias">
-            <div class="dropdown-divider"></div>
+
             <a class="dropdown-item" routerLink="abono">Transferencia</a>
           </div>
         </li>
@@ -35,12 +35,19 @@
         <li class="nav-item" *ngIf="!_usuario.usuario.id_usuario">
           <a class="nav-link" routerLink="registro">Registrar</a>
         </li>
-        <li class="p-1" *ngIf="_usuario.usuario.id_usuario">
-          {{ _usuario.usuario.paterno }}, {{ _usuario.usuario.nombres }}
+        <li class="nav-item dropdown" *ngIf="_usuario.usuario.id_usuario">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="usuario"> <i class="fas fa-user"></i> <span
+              class="caret"></span></a>
+          <div class="dropdown-menu usuario" aria-labelledby="usuario">
+
+            <p>{{ _usuario.usuario.paterno }}, {{ _usuario.usuario.nombres }}</p>
+            
+
+            <a class="btn btn-sm btn-outline-primary" href="#" (click)="cerrar()">Cerrar sesión</a>
+
+          </div>
         </li>
-        <li class="nav-item" *ngIf="_usuario.usuario.id_usuario">
-          <a class="btn btn-sm btn-outline-primary" href="#" (click)="cerrar()">Cerrar sesión</a>
-        </li>
+
       </ul>
 
     </div>

@@ -30,7 +30,7 @@
 
     function init_collapse() {
 
-      $('ul.navbar-nav>li.nav-item:not(.dropdown-toggle)').on('click', function () {
+      $('ul.navbar-nav>li:not(.dropdown).nav-item, .navbar a.dropdown-item').on('click', function () {
         $('.navbar-collapse').collapse('hide');
       });
     }
