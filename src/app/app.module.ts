@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniaComponent } from './pages/compania/compania.component';
 import { ComoComponent } from './pages/como/como.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
@@ -32,7 +32,8 @@ import { AbonoComponent } from './pages/abono/abono.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

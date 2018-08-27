@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UsuarioService } from "../../services/usuario.service";
 import { TransferenciasService } from "../../services/transferencias.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-abono",
@@ -16,12 +17,36 @@ export class AbonoComponent implements OnInit {
 
   transferi: boolean = false;
 
+  forma: FormGroup;
+
   constructor(
     public _usuario: UsuarioService,
     public _transferencias: TransferenciasService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.forma = new FormGroup({
+      monto: new FormControl( null, [Validators.required, Validators.min(10000)] ),
+      tasa: new FormControl(),
+      montofinal: new FormControl(),
+      pais: new FormControl( "Venezuela", Validators.required ),
+      nombre: new FormControl( null, [Validators.required, Validators.minLength(3)] ),
+      ci: new FormControl( null, [Validators.required] ),
+      banco: new FormControl(null, Validators.required),
+      tipocuenta: new FormControl( null, Validators.required ),
+      ncuenta: new FormControl( null, Validators.required ),
+      correo: new FormControl( null, [Validators.required, Validators.email] ),
+      declaro: new FormControl( false )
+    });
+  }
+
+  enviar() {
+    console.log(this.forma.valid);
+    
+    console.log(this.forma);
+    
+  }
 
   calcular() {
     this.bolivares = this.pesos * this.tasa + this.gastos;

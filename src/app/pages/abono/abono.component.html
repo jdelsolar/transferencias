@@ -4,125 +4,129 @@
     Regístrate
   </h2>
   <p>
-    Para realizar transferencias debes estar registrado. Si ya estás registrado <a routerLink="login">ingresa acá</a>
+    Para realizar transferencias debes estar registrado. Si ya estás registrado
+    <a routerLink="login">ingresa acá</a>
   </p>
 
 </div>
 
 <div class="container principal" *ngIf="_usuario.usuario.id_usuario">
   <h3>Abono a tu cuenta</h3>
-  <div class="login">
-    <p>
-      Debes realizar un depósito en la siguiente cuenta y luego adjuntanos tu depósito.
-    </p>
-    <p>Para transferencia electrónica:</p>
-    <div class="alert alert-dismissible alert-primary">
-      Nombre empresa: TECNOSEG <br> Rut: 76.145.716-0 <br> Banco: BCI <br> Cuenta: Corriente <br> N° de cuenta: 54005078
-      <br> Correo: abonos@123depositos.com <br>
+  <form [formGroup]="forma" (ngSubmit)="enviar()">
+    <div class="login">
+      <p>
+        Debes realizar un depósito en la siguiente cuenta y luego adjuntanos tu depósito.
+      </p>
+      <p>Para transferencia electrónica:</p>
+      <div class="alert alert-dismissible alert-primary">
+        Nombre empresa: TECNOSEG
+        <br> Rut: 76.145.716-0
+        <br> Banco: BCI
+        <br> Cuenta: Corriente
+        <br> N° de cuenta: 54005078
+        <br> Correo: abonos@123depositos.com
+        <br>
 
-    </div>
-    <p>O depositos en caja en sucursales BCI (<a href="https://www.bci.cl/personas/sucursales" target="_blank">Ver sucursales
-        más cercanas</a>)</p>
-
-    <div class="form-group">
-      <label for="exampleInputFile">Adjuntar comprobante</label>
-      <div>
-        <img *ngIf="imagen" [src]="imagen" width="100px">
       </div>
-      <input type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file" aria-describedby="fileHelp">
-      <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
-    </div>
-    <div class="form-group">
-      <label>Monto a transferir</label>
-      <input type="text" class="form-control" placeholder="Monto" [(ngModel)]="pesos" (blur)="calcular()">
-    </div>
+      <p>O depositos en caja en sucursales BCI (
+        <a href="https://www.bci.cl/personas/sucursales" target="_blank">Ver sucursales más cercanas</a>)</p>
 
-    <div class="row">
-      <div class="col-xs-6 px-3">
-        <div class="form-group">
+      <div class="form-group">
+        <label for="exampleInputFile">Adjuntar comprobante</label>
+        <div>
+          <img *ngIf="imagen" [src]="imagen" width="100px">
+        </div>
+        <input  type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file" aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
+      </div>
+      <div class="form-group">
+        <label>Monto a transferir</label>
+        <input formControlName="monto" name="monto" type="text" class="form-control" placeholder="Monto"  (blur)="calcular()">
+      </div>
 
-          <label>Tasa de conversión (Bs)</label>
-          <input type="text" class="form-control" placeholder="Tasa" disabled="disabled" [(ngModel)]="tasa">
+      <div class="row">
+        <div class="col-xs-6 px-3">
+          <div class="form-group">
+
+            <label>Tasa de conversión (Bs)</label>
+            <input formControlName="tasa" name="tasa" type="text" class="form-control" placeholder="Tasa" disabled="disabled" >
+          </div>
+        </div>
+        <div class="col-xs-6 px-3">
+          
         </div>
       </div>
-      <div class="col-xs-6 px-3">
+
+      <div class="form-group">
+        <label>Monto final (Bs)</label>
+        <input formControlName="montofinal" name="montofinal" type="text" class="form-control" placeholder="" disabled="disabled" [(ngModel)]="bolivares">
+      </div>
+
+
+    </div>
+    <hr>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="#destinatarios">Mis destinatarios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#nuevo">Nuevo destinatario</a>
+      </li>
+
+    </ul>
+    <div id="nuevo" class="tab-content">
+      <h3>
+        Nuevo destinatario:
+      </h3>
+      <div class="login mb-2">
         <div class="form-group">
-          <label>Gastos operativos</label>
-          <input type="text" class="form-control" placeholder="" disabled="disabled" [(ngModel)]="gastos">
+          <label>Pais</label>
+          <select formControlName="pais" name="pais" class="custom-select">
+            <option value="Venezuela">Venezuela</option>
+          </select>
         </div>
+        <div class="form-group">
+          <label>Nombre, Apellido o Razón Social</label>
+          <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+          <label>CI o RIF</label>
+          <input formControlName="ci" name="ci" type="text" class="form-control" placeholder="CI o RIF">
+        </div>
+
+        <div class="form-group">
+          <label>Banco</label>
+          <select formControlName="banco" name="banco" class="custom-select">
+            <option *ngFor="let banco of _transferencias.bancos" [ngClass]="( banco.tiempo == '24 hrs') ? 'text-primary' : 'text-danger'"
+              [value]="banco.nombre">{{ banco.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de cuenta</label>
+          <select formControlName="tipocuenta" name="tipocuenta" class="custom-select">
+            <option value="Corriente">Corriente</option>
+            <option value="Ahorro">Ahorro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>N° de cuenta</label>
+          <input formControlName="ncuenta" name="ncuenta" type="text" class="form-control" placeholder="N° de cuenta">
+        </div>
+        <div class="form-group">
+          <label>Correo</label>
+          <input formControlName="correo" name="correo" type="text" class="form-control" placeholder="Correo">
+        </div>
+
       </div>
     </div>
+    <div id="destinatarios" class="tab-content"></div>
 
-    <div class="form-group">
-      <label>Monto final (Bs)</label>
-      <input type="text" class="form-control" placeholder="" disabled="disabled" [(ngModel)]="bolivares">
+    <div class="custom-control custom-checkbox pb-3">
+      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1" >
+      <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
     </div>
 
-
-  </div>
-  <hr>
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link " data-toggle="tab" href="#destinatarios">Mis destinatarios</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#nuevo">Nuevo destinatario</a>
-    </li>
-
-  </ul>
-  <div id="nuevo" class="tab-content">
-    <h3>
-      Nuevo destinatario:
-    </h3>
-    <div class="login mb-2">
-      <div class="form-group">
-        <label>Pais</label>
-        <select class="custom-select">
-          <option value="Venezuela">Venezuela</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Nombre, Apellido o Razón Social</label>
-        <input type="text" class="form-control" placeholder="Nombre">
-      </div>
-      <div class="form-group">
-        <label>CI o RIF</label>
-        <input type="text" class="form-control" placeholder="CI o RIF">
-      </div>
-
-      <div class="form-group">
-        <label>Banco</label>
-        <select class="custom-select">
-          <option *ngFor="let banco of _transferencias.bancos" [ngClass]="( banco.tiempo == '24 hrs') ? 'text-primary' : 'text-danger'"
-            [value]="banco.nombre">{{ banco.nombre }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Tipo de cuenta</label>
-        <select class="custom-select">
-          <option value="Corriente">Corriente</option>
-          <option value="Ahorro">Ahorro</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>N° de cuenta</label>
-        <input type="text" class="form-control" placeholder="N° de cuenta">
-      </div>
-      <div class="form-group">
-        <label>Correo</label>
-        <input type="text" class="form-control" placeholder="Correo">
-      </div>
-
-    </div>
-  </div>
-  <div id="destinatarios" class="tab-content"></div>
-
-  <div class="custom-control custom-checkbox pb-3">
-    <input type="checkbox" class="custom-control-input" id="customCheck1" [(ngModel)]="transferi" >
-    <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
-  </div>
-
-  <button type="button" class="btn btn-primary btn-lg" [disabled]="!transferi">Transferir</button>
-
+    <button type="submit" class="btn btn-primary btn-lg" >Transferir</button>
+  </form>
 
 </div>
