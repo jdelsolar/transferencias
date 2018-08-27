@@ -1,0 +1,26 @@
+<div class="container h600">
+  <h3>
+    Mis transferencias
+  </h3>
+
+  <div *ngFor="let tran of _transf.misTransferencias" class="row separador">
+
+    <div class="col-sm">
+      {{ tran.destinatario.nombre }}
+    </div>
+    <div class="col-sm">
+      {{ tran.destinatario.banco }}
+    </div>
+    <div class="col-sm">
+      CL$ {{ tran.transferencia.monto }}
+    </div>
+    <div class="col-sm">
+      Tasa: Bs$ {{ tran.transferencia.tasa }}
+    </div>
+    <div class="col-sm">
+      {{ tran.transferencia.estado }}
+    </div>
+
+  </div>
+
+</div>

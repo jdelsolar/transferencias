@@ -36,12 +36,12 @@
         <div>
           <img *ngIf="imagen" [src]="imagen" width="100px">
         </div>
-        <input  type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file" aria-describedby="fileHelp">
+        <input type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file" aria-describedby="fileHelp">
         <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
       </div>
       <div class="form-group">
         <label>Monto a transferir</label>
-        <input formControlName="monto" name="monto" type="text" class="form-control" placeholder="Monto"  (blur)="calcular()">
+        <input formControlName="monto" name="monto" type="text" class="form-control" (change)="calcular()">
       </div>
 
       <div class="row">
@@ -49,17 +49,17 @@
           <div class="form-group">
 
             <label>Tasa de conversión (Bs)</label>
-            <input formControlName="tasa" name="tasa" type="text" class="form-control" placeholder="Tasa" disabled="disabled" >
+            <input formControlName="tasa" name="tasa" type="text" class="form-control" placeholder="Tasa">
           </div>
         </div>
         <div class="col-xs-6 px-3">
-          
+
         </div>
       </div>
 
       <div class="form-group">
         <label>Monto final (Bs)</label>
-        <input formControlName="montofinal" name="montofinal" type="text" class="form-control" placeholder="" disabled="disabled" [(ngModel)]="bolivares">
+        <input formControlName="montofinal" name="montofinal" type="text" class="form-control" placeholder="">
       </div>
 
 
@@ -67,17 +67,24 @@
     <hr>
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" href="#destinatarios">Mis destinatarios</a>
+        <a class="nav-link " data-toggle="tab" href="#destinatarios" (click)="pestanaDestinatarios('lista')">Mis destinatarios</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#nuevo">Nuevo destinatario</a>
+        <a class="nav-link active" data-toggle="tab" href="#nuevo" (click)="pestanaDestinatarios('nuevo')">Nuevo destinatario</a>
       </li>
 
     </ul>
-    <div id="nuevo" class="tab-content">
-      <h3>
+    <div class="tab-content">
+      <h3 *ngIf="destinatario === 'nuevo'" >
         Nuevo destinatario:
       </h3>
+      <div class="form-group" *ngIf="destinatario === 'lista'">
+        <label>Seleccione destinatario</label>
+        <select (change)="cambioDestinatario()" formControlName="misDestinatarios" name="misDestinatarios" class="custom-select">
+          <option *ngFor="let destinatario of _transferencias.misDestinatarios" [value]="destinatario.id">{{ destinatario.nombre
+            }}</option>
+        </select>
+      </div>
       <div class="login mb-2">
         <div class="form-group">
           <label>Pais</label>
@@ -122,11 +129,11 @@
     <div id="destinatarios" class="tab-content"></div>
 
     <div class="custom-control custom-checkbox pb-3">
-      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1" >
+      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1">
       <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg" >Transferir</button>
+    <button type="submit" class="btn btn-primary btn-lg">Transferir</button>
   </form>
 
 </div>

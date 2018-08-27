@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { URL_SERVICIOS } from "../../config";
+import { UsuarioService } from "./usuario.service";
 
 @Injectable({
   providedIn: "root"
@@ -11,8 +12,15 @@ export class TransferenciasService {
 
   api: string = URL_SERVICIOS;
 
-  constructor(private http: HttpClient) {
+  misTransferencias: TransferenciaDestinatario[] = [];
+
+  misDestinatarios: Destinatario[] = [];
+
+
+  constructor(private http: HttpClient, private _usuario: UsuarioService) {
     this.obtenerBancos();
+
+    this.obtenerTransferencias( );
   }
 
   obtenerBancos() {
@@ -37,21 +45,43 @@ export class TransferenciasService {
     return this.http.post(url, post);
   }
 
-  agregarTransferencia( transf: Tranferecia ){
+  agregarTransferencia( transf: Transferencia ){
     let url = this.api + "/transferencias/agregar_transferencia";
     let post = {
       id_destinatario: transf.id_destinatario,
       imagen: transf.imagen,
       monto: transf.monto,
       tasa: transf.tasa,
-      estado: 'INI'
+      estado: 'Pendiente',
+      id_usuario: transf.id_usuario
     }
     return this.http.post(url, post);
     
   }
+
+  obtenerTransferencias( ) {
+    let url = this.api + "/transferencias/obtener_transferencias/" + this._usuario.usuario.id_usuario ;
+
+    this.http.get( url ).subscribe((resp:any) => {
+      if (resp.respuesta){
+        this.misTransferencias = resp.transferencias
+      }
+    });
+  }
+
+  obtenerDestinatarios() {
+    let url = this.api + "/transferencias/obtener_destinatarios/" + this._usuario.usuario.id_usuario ;
+
+    this.http.get( url ).subscribe((resp:any) => {
+      if (resp.respuesta){
+        this.misDestinatarios = resp.destinatarios
+      }
+    });
+  }
+  
 }
 
-export interface Tranferecia {
+export interface Transferencia {
   id?: string;
   id_destinatario?: string;
   imagen?: string;
@@ -60,6 +90,7 @@ export interface Tranferecia {
   estado?: string;
   fecha?: string;
   fecha_estado?: string;
+  id_usuario?: string;
 }
 
 export interface Destinatario {
@@ -73,4 +104,10 @@ export interface Destinatario {
   correo?: string;
   fecha?: string;
   id_usuario?: string;
+}
+
+
+interface TransferenciaDestinatario {
+  transferencia?: Transferencia;
+  destinatario?: Destinatario;
 }

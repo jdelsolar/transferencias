@@ -7,6 +7,7 @@ import { CompaniaComponent } from "./pages/compania/compania.component";
 import { ComoComponent } from "./pages/como/como.component";
 import { ContactoComponent } from "./pages/contacto/contacto.component";
 import { AbonoComponent } from "./pages/abono/abono.component";
+import { TransferenciasComponent } from "./pages/transferencias/transferencias.component";
 
 const app_routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +16,7 @@ const app_routes: Routes = [
   { path: "como", component: ComoComponent },
   { path: "contacto", component: ContactoComponent },
   { path: "abono", component: AbonoComponent },
+  { path: "transferencias", component: TransferenciasComponent },
   { path: "**", pathMatch: "full", redirectTo: 'login' }
 ];
 

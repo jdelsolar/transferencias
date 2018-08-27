@@ -14,6 +14,7 @@ import { CompaniaComponent } from './pages/compania/compania.component';
 import { ComoComponent } from './pages/como/como.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { AbonoComponent } from './pages/abono/abono.component';
+import { TransferenciasComponent } from './pages/transferencias/transferencias.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AbonoComponent } from './pages/abono/abono.component';
     CompaniaComponent,
     ComoComponent,
     ContactoComponent,
-    AbonoComponent
+    AbonoComponent,
+    TransferenciasComponent
   ],
   imports: [
     BrowserModule,
