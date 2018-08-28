@@ -1,4 +1,18 @@
-<div class="container h600">
+<div class="container h600 " *ngIf="!_usuario.usuario.id_usuario">
+
+  <h2>
+    Regístrate
+  </h2>
+  <p>
+    Para realizar transferencias debes estar registrado. Si ya estás registrado
+    <a routerLink="login">ingresa acá</a>
+  </p>
+
+</div>
+
+
+
+<div class="container h600" *ngIf="_usuario.usuario.id_usuario" >
   <h3>
     Mis transferencias
   </h3>

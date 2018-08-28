@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferenciasService } from '../../services/transferencias.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-transferencias',
@@ -8,7 +9,7 @@ import { TransferenciasService } from '../../services/transferencias.service';
 })
 export class TransferenciasComponent implements OnInit {
 
-  constructor( public _transf: TransferenciasService,  ) { }
+  constructor( public _transf: TransferenciasService, public _usuario: UsuarioService  ) { }
 
   ngOnInit() {
     this._transf.obtenerTransferencias(  );
