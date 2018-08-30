@@ -1,5 +1,5 @@
 <!-- <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary"> -->
-<div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <div class="container">
     <a routerLink="login" class="navbar-brand"> <img src="assets/img/123depositos_1.png" width="150px"> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -30,13 +30,14 @@
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item" *ngIf="!_usuario.usuario.id_usuario">
-          <a class="nav-link " routerLink="login">
+        <li class="nav-item p-1" *ngIf="!_usuario.usuario.id_usuario">
+          <a class="btn btn-outline-primary btn-sm " routerLink="login">
             Ingresar
           </a>
+
         </li>
-        <li class="nav-item" *ngIf="!_usuario.usuario.id_usuario">
-          <a class="nav-link" routerLink="registro">Registrar</a>
+        <li class="nav-item p-1" *ngIf="!_usuario.usuario.id_usuario">
+          <a class=" btn btn-outline-primary btn-sm" routerLink="registro">Registrar</a>
         </li>
         <li class="nav-item dropdown" *ngIf="_usuario.usuario.id_usuario">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="usuario"> <i class="fas fa-user"></i> <span
@@ -55,4 +56,4 @@
 
     </div>
   </div>
-</div>
+</nav>

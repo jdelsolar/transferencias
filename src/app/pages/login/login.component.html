@@ -1,6 +1,6 @@
 <div class="container"> 
 
-
+<!-- 
   <div class="login" *ngIf="!_usuario.usuario.id_usuario">
     <h2>Ingrese</h2>
     <div class="alert alert-dismissible alert-danger" *ngIf="error">
@@ -17,7 +17,7 @@
     <button class="btn btn-success " (click)="loginClick()" [disabled]="( cargando || !correo || !clave ) ? 'disabled' : '' " >
       {{ ( cargando ) ? 'Cargando ...' : 'Login'  }}
     </button>
-  </div>
+  </div> -->
 
   <div class="logueado" *ngIf="_usuario.usuario.id_usuario">
     <h2>
@@ -25,5 +25,22 @@
     </h2>
   </div>
 
+  <form class="form-signin text-center" (submit)="loginClick()" *ngIf="!_usuario.usuario.id_usuario">
+    <img class="mb-4" src="assets/img/123depositos_1.png" alt="" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Por favor ingrese</h1>
+    <label for="inputEmail" class="sr-only">Correo electrónico</label>
+    <input [(ngModel)]="correo" name="correo" type="email" id="inputEmail" class="form-control" placeholder="Correo electrónico" required autofocus>
+    <label  for="inputPassword" class="sr-only">Contraseña</label>
+    <input [(ngModel)]="clave" name="clave" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+    <div class="checkbox mb-3">
+      <label>
+        <!-- <input type="checkbox" value="remember-me"> Remember me -->
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"  [disabled]="( cargando || !correo || !clave ) ? 'disabled' : '' ">
+        {{ ( cargando ) ? 'Cargando ...' : 'Ingrese'  }}
+    </button>
+    <p class="mt-5 mb-3 text-muted"></p>
+  </form>
 
 </div>
