@@ -1,3 +1,53 @@
 .principal {
     min-height: 600px;
+    
+}
+
+.row {
+    padding: 1rem;
+}
+
+.texto {
+    font-size: 0.8em;
+    line-height: 105%;
+    padding-bottom: 1rem;
+}
+
+
+.imagen {
+    height: 220px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+.paso {
+    height: 220px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 3rem;
+}
+
+.paso1 {
+    background-color: #00aeeb;
+    color: #ffffff;
+}
+.paso1 h3 {
+    color: #ffffff;
+}
+
+.paso2 {
+    background-color: #ffffff;
+    color: #00aeeb;
+}
+.paso2 h3 {
+    color: #00aeeb;
+}
+
+.paso3 {
+    background-color: #00aeeb;
+    color: #ffffff;
+}
+.paso3 h3 {
+    color: #ffffff;
 }
