@@ -8,8 +8,11 @@ import { ComoComponent } from "./pages/como/como.component";
 import { ContactoComponent } from "./pages/contacto/contacto.component";
 import { AbonoComponent } from "./pages/abono/abono.component";
 import { TransferenciasComponent } from "./pages/transferencias/transferencias.component";
+import { InicioComponent } from "./pages/inicio/inicio.component";
+
 
 const app_routes: Routes = [
+  { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: "registro", component: RegistroComponent },
   { path: "compania", component: CompaniaComponent },
@@ -17,7 +20,7 @@ const app_routes: Routes = [
   { path: "contacto", component: ContactoComponent },
   { path: "abono", component: AbonoComponent },
   { path: "transferencias", component: TransferenciasComponent },
-  { path: "**", pathMatch: "full", redirectTo: 'login' }
+  { path: "**", pathMatch: "full", redirectTo: 'inicio' }
 ];
 
 @NgModule({

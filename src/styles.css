@@ -2,7 +2,15 @@
 .h600 {
     min-height: 600px;
 }
+.h300 {
+    min-height: 300px;
+}
 .fondo-azul {
 
     background-color: #00aeeb;
+}
+
+.imagen-fondo {
+    background-image: url("/assets/img/fondo123.png");
+    background-size: cover;
 }

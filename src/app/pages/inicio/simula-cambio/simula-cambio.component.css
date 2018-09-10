@@ -1,0 +1,29 @@
+
+.titulo {
+    color: white;
+    font-size: 1.9em;
+    text-align: center;
+    line-height: 120%;
+}
+.titulo-negrita {
+    font-weight: bold;
+}
+.formulario {
+    min-height: 300px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-color: #a7a1b7;
+    padding: 1rem;
+}
+
+form {
+    font-size: 12pt;
+    color: #00aeeb;
+}
+
+.pie {
+    padding-top: 2rem;
+    font-size: 12pt;
+    color: black;
+}

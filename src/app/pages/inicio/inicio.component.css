@@ -1,0 +1,27 @@
+
+.color-inicio {
+    background-color: #fcfbfc;
+
+}
+.texto-izquierdo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.texto-azul {
+    color: #00aeeb;
+}
+.texto-negro {
+    color: black;
+
+}
+.texto-derecho {
+    font-size: 1.5em;
+}
+.texto-blanco {
+    color: white;
+    
+}
+.texto-blanco-negrita {
+    color: white;
+    font-weight: bold;
+}

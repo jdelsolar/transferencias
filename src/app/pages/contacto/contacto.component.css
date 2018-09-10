@@ -2,12 +2,6 @@
     min-height: 600px;
 }
 
-
-.imagen-fondo {
-    background-image: url("/assets/img/fondo123.png");
-    background-size: cover;
-}
-
 .texto-derecho {
     height: 600px;
     text-align: center;

@@ -1,0 +1,38 @@
+<div class="tasa p-4">
+
+  <div class="titulo">
+    <span class="titulo-negrita">Tasa del día </span> <br> <span class="titulo-tasa"> {{ tasa }} Bs/CLP</span>
+  </div>
+  <div class="formulario ">
+    <form  action="">
+      <div class="form-group">
+        <label class="control-label">Pesos a cambiar</label>
+        <div class="form-group">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">CLP$</span>
+            </div>
+            <input [(ngModel)]="pesos" name="pesos" (keyup)="calculaBolivares()" type="text" class="form-control" aria-describedby="pesos" numeric >
+          </div>
+          <small id="pesos" class="form-text ">Monto mínimo para trasferir CLP$ 15.000 </small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Bolivares</label>
+        <div class="form-group">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Bs$</span>
+            </div>
+            <input [(ngModel)]="bolivares" name="bolivares" (keyup)="carculaPesos()" type="text" class="form-control" aria-describedby="bolivares" numeric >
+          </div>
+          <small id="bolivares" class="form-text "> </small>
+        </div>
+      </div>
+    </form>
+    <div class="pie">
+      Si quieres hacer tu transferencia <a class="link-pie" routerLink="/registro">regístrate aquí.</a>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,24 @@
+<div class="login">
+
+  <form ngNativeValidate class="form-signin " (submit)="loginClick()">
+
+    <h3>Iniciar sesión</h3>
+    <p>Ingresa tu correo y contraseña para ingresar a 123dopositos.</p>
+
+    <input [(ngModel)]="correo" name="correo" type="email" id="inputEmail" class="form-control" placeholder="Correo electrónico"
+      required autofocus>
+    <input [(ngModel)]="clave" name="clave" type="password" id="inputPassword" class="form-control" placeholder="Contraseña"
+      required>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="( cargando || !correo || !clave ) ? 'disabled' : '' ">
+      {{ ( cargando ) ? 'Cargando ...' : 'Ingrese' }}
+    </button>
+
+    <div class="pie pt-3">
+      ¿Aún no estás registrado? <a class="link-pie" routerLink="/registro">Crea tu cuenta</a>
+    </div>
+  </form>
+
+
+
+</div>

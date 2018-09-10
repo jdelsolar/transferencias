@@ -15,6 +15,9 @@ import { ComoComponent } from './pages/como/como.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { AbonoComponent } from './pages/abono/abono.component';
 import { TransferenciasComponent } from './pages/transferencias/transferencias.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { SimulaCambioComponent } from './pages/inicio/simula-cambio/simula-cambio.component';
+import { LoginInicioComponent } from './pages/inicio/login-inicio/login-inicio.component';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { TransferenciasComponent } from './pages/transferencias/transferencias.c
     ComoComponent,
     ContactoComponent,
     AbonoComponent,
-    TransferenciasComponent
+    TransferenciasComponent,
+    InicioComponent,
+    SimulaCambioComponent,
+    LoginInicioComponent
   ],
   imports: [
     BrowserModule,
