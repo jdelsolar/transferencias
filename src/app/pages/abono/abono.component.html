@@ -133,7 +133,7 @@
       <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg">Transferir</button>
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="btnCargando" > {{ btnCargando ? 'Cargando ...' : 'Transferir' }} </button>
   </form>
 
 </div>

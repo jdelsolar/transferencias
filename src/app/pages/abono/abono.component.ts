@@ -9,6 +9,10 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Router } from "@angular/router";
 
+import { SubirArchivoService } from "../../services/subir-archivo.service";
+
+import swal from 'sweetalert';
+
 @Component({
   selector: "app-abono",
   templateUrl: "./abono.component.html",
@@ -17,14 +21,19 @@ import { Router } from "@angular/router";
 export class AbonoComponent implements OnInit {
   imagen: string = null;
 
+  imagenSubir: File;
+
   destinatario = "nuevo";
 
   forma: FormGroup;
 
+  btnCargando: boolean = false;
+
   constructor(
     public _usuario: UsuarioService,
     public _transferencias: TransferenciasService,
-    private _router:Router
+    private _router:Router,
+    public _subir:SubirArchivoService
   ) {}
 
   ngOnInit() {
@@ -98,28 +107,66 @@ export class AbonoComponent implements OnInit {
   enviar() {
     if (this.forma.valid) {
 
+      this.btnCargando = true;
+
       if (this.destinatario === "lista") {
         let transferencia: Transferencia;
         transferencia = {
           id_destinatario: this.forma.get("misDestinatarios").value,
           monto: this.forma.get("monto").value,
           tasa: this.forma.get("tasa").value,
-          imagen: "imagen",
+          imagen: "",
           id_usuario: this._usuario.usuario.id_usuario
         };
-        this._transferencias.agregarTransferencia(transferencia).subscribe(
-          (resp2: any) => {
-            if (resp2.respuesta) {
-              // todo bien
-              console.log("todo bien");
-              this._router.navigateByUrl('transferencias');
-            } else {
-              // algo pasa
-              console.log("algo pasa");
-            }
-          },
-          err => console.log("Error ", err)
-        );
+
+        //mandamos la imagen 
+        if ( this.imagenSubir ) {
+         
+          this._subir.subirArchivo( this.imagenSubir ).then( (resp:any) => {
+
+            console.log( resp );
+            transferencia.imagen = resp.mensaje.upload_data.file_name;
+            this._transferencias.agregarTransferencia(transferencia).subscribe(
+              (resp2: any) => {
+                if (resp2.respuesta) {
+                  // todo bien
+                  console.log("todo bien");
+                  this._router.navigateByUrl('transferencias');
+                  this.btnCargando = false;
+                } else {
+                  // algo pasa
+                  //console.log("algo pasa");
+                  this.btnCargando = false;
+                  swal('Error al guardar la transferencia');
+                }
+              },
+              err => console.log("Error ", err)
+            );
+
+          }).catch( err => {
+            //console.log('Error al subir el archivo', err);
+            swal( 'Error al subir el archivo' );
+          })
+          
+        } else {
+
+          this._transferencias.agregarTransferencia(transferencia).subscribe(
+            (resp2: any) => {
+              if (resp2.respuesta) {
+                // todo bien
+                //console.log("todo bien");
+                this._router.navigateByUrl('transferencias');
+              } else {
+                // algo pasa
+                console.log("algo pasa");
+                swal( 'Error al guardar la transferencia' );
+              }
+            },
+            err => console.log("Error ", err)
+          );
+
+        }
+
       } else {
         let destinatario: Destinatario = {
           banco: this.forma.get("banco").value,
@@ -143,25 +190,59 @@ export class AbonoComponent implements OnInit {
                 id_destinatario: destinatario.id,
                 monto: this.forma.get("monto").value,
                 tasa: this.forma.get("tasa").value,
-                imagen: "imagen",
+                imagen: "",
                 id_usuario: this._usuario.usuario.id_usuario
               };
 
-              this._transferencias
-                .agregarTransferencia(transferencia)
-                .subscribe(
-                  (resp2: any) => {
-                    if (resp2.respuesta) {
-                      // todo bien
-                      console.log("todo bien");
-                      this._router.navigateByUrl('transferencias');
-                    } else {
-                      // algo pasa
-                      console.log("algo pasa");
-                    }
-                  },
-                  err => console.log("Error ", err)
-                );
+              if ( this.imagenSubir ) {
+                // enviar la imagen y luego la transferencia
+                this._subir.subirArchivo( this.imagenSubir ).then( (resp:any) => {
+
+                  transferencia.imagen = resp.mensaje.upload_data.file_name;
+
+                  this._transferencias
+                  .agregarTransferencia(transferencia)
+                  .subscribe(
+                    (resp2: any) => {
+                      if (resp2.respuesta) {
+                        // todo bien
+                        console.log("todo bien");
+                        this._router.navigateByUrl('transferencias');
+                      } else {
+                        // algo pasa
+                        //console.log("algo pasa");
+                        swal('Error al guardar la transferencia');
+                      }
+                    },
+                    err => console.log("Error ", err)
+                  );
+
+                }).catch( err => {
+                  //console.log('Error al enviar el archivo', err);
+                  swal('Error al enviar el archivo');
+                  
+                });
+              } else {
+                
+                this._transferencias
+                  .agregarTransferencia(transferencia)
+                  .subscribe(
+                    (resp2: any) => {
+                      if (resp2.respuesta) {
+                        // todo bien
+                        console.log("todo bien");
+                        this._router.navigateByUrl('transferencias');
+                      } else {
+                        // algo pasa
+                        //console.log("algo pasa");
+                        swal('Error al guardar la transferencia');
+                      }
+                    },
+                    err => console.log("Error ", err)
+                  );
+
+              }
+
             }
           },
           err => console.log("Error ", err)
@@ -180,8 +261,10 @@ export class AbonoComponent implements OnInit {
     this.forma.get("montofinal").setValue(monto * tasa);
   }
 
-  seleccionarImagen(img: any) {
+  seleccionarImagen(img: File) {
     if (img) {
+      this.imagenSubir = img;
+
       if (img.type.indexOf("image") >= 0) {
         let reader = new FileReader();
         let urlTemp = reader.readAsDataURL(img);
@@ -190,6 +273,9 @@ export class AbonoComponent implements OnInit {
           this.imagen = reader.result.toString();
         };
       }
+    } else {
+      this.imagenSubir = null;
+
     }
   }
 }

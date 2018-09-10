@@ -1,40 +1,51 @@
-<div class="container principal">
-  <h2>Contacto</h2>
-  <p>
-    Cualquier duda o sugerencia, escríbanos a:
-  </p>
+<div class="container ">
+
   <div class="row">
-    <div class="col-md-3">
-      <b>Correo</b>
+    <div class="col-md-6 marco p-4">
+
+      <div class="whatsapp">
+        Escríbenos a nuestro <span class="font-weight-bold">WhatsApp +56 9 3568 9629 (solo mensajes)</span>
+      </div>
+      <div class="texto-izquierdo">
+        También nos puedes contactar a través del siguiente formulario:
+
+      </div>
+      <form ngNativeValidate [formGroup]="forma" (submit)="enviar()" >
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input formControlName="nombre" name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" required >
+
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input formControlName="email" name="email" type="email" class="form-control" id="email" placeholder="E-mail" required >
+
+        </div>
+        <div class="form-group">
+          <label for="asunto">Asunto</label>
+          <input formControlName="asunto" name="asunto" type="text" class="form-control" id="asunto" placeholder="Asunto" required >
+
+        </div>
+        <div class="form-group">
+          <label for="nacionalidad">Nacionalidad</label>
+          <input formControlName="nacionalidad" name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" required >
+
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea formControlName="mensaje" name="mensaje" class="form-control" id="mensaje" placeholder="mensaje" rows="5" required ></textarea>
+
+        </div>
+        <button [disabled]="_contacto.cargando" type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
     </div>
-    <div class="col-md-9">
-      <a href="mailto: contacto@123depositos.com">contacto@123depositos.com</a>
+    <div class="col-md-6 fondo-azul imagen-fondo ">
+
+      <div class="texto-derecho align-middle">
+        En qué te <span class="font-weight-bold">podemos ayudar?</span>
+      </div>
+
     </div>
   </div>
-  <hr>
-  
-  <h2>Preguntas frecuentes:</h2>
-  <ol>
-    <li>
-      ¿Que bancos manejas en Chile?
-      <p>
-        BCI empresas.
-      </p>
-    </li>
-    <li>
-      ¿Que bancos manejas en Venezuela?
-      <p>
-        Banesco, Venezuela, Provincial y Mercantil.
-      </p>
-    </li>
-    <li>
-      ¿En cuanto tiempo dispongo de mi dinero?
-      <p>
-        Máximo 24 horas si las transferencias son del mismo banco.
-        <br> Si las transferencias son a distintos bancos en un período de 72 horas, ese tiempo varia dependiendo del banco receptor.
-      </p>
-    </li>
-
-  </ol>
 
 </div>
