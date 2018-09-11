@@ -1,4 +1,4 @@
-<div class="login">
+<div *ngIf="!_usuario.usuario.id_usuario" class="login">
 
   <form ngNativeValidate class="form-signin " (submit)="loginClick()">
 
@@ -21,4 +21,9 @@
 
 
 
+</div>
+
+<div *ngIf="_usuario.usuario.id_usuario" class="login">
+
+  <p class="texto-login"> Para realizar tus depósitos <a routerLink="/abono" > haz click aquí. </a> </p>
 </div>

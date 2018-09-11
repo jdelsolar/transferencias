@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { UsuarioService } from "../../../services/usuario.service";
 
 @Component({
   selector: "app-login-inicio",
@@ -10,12 +11,23 @@ export class LoginInicioComponent implements OnInit {
   clave: string;
   cargando:boolean = false;
 
-  constructor() {}
+  constructor( public _usuario:UsuarioService ) {}
 
   ngOnInit() {}
 
   loginClick() {
-    console.log("Ingreso");
+    this.cargando = true;
+
+    this._usuario.login( this.correo, this.clave ).then( resp => {
+      if( resp )  {
+        // Logueado
+        
+      } else {
+        // Error
+        swal("Correo o contaseña no válidos.")
+      }
+      this.cargando = false;
+    });
     
   }
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UsuarioService, Usuario } from "../../services/usuario.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-registro",
@@ -11,7 +12,7 @@ export class RegistroComponent implements OnInit {
   cargando: boolean = false;
   usuario: Usuario = {};
 
-  constructor(public _usuario: UsuarioService) {}
+  constructor(public _usuario: UsuarioService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -22,7 +23,9 @@ export class RegistroComponent implements OnInit {
         if (resp.respuesta) {
           this.registrado = true;
           this.cargando = false;
-          console.log(resp);
+          //console.log(resp);
+          swal("Se ha completado su registro, ya puede ingresar a 123depósitos.");
+          this.router.navigate(['/login']);
         }
       },
       err => {
