@@ -1,39 +1,46 @@
 <div class="container">
 
+  <form ngNativeValidate [formGroup]="forma" (submit)="enviar()">
+    <div class="registro" *ngIf="!_usuario.usuario.id_usuario">
+      <h2>Registro de Usuario</h2>
+      <div class="form-group ">
+        <label>Correo electrónico</label>
+        <input formControlName="correo" name="correo" type="email" class="form-control " placeholder="Ingrese Correo" required>
+      </div>
+      <div class="form-group ">
+        <label>Contraseña</label>
+        <input formControlName="clave" name="clave" type="password" class="form-control " placeholder="Contraseña" required minlength="6">
+      </div>
+      <hr>
+      <div class="form-group ">
+        <label>Apellido paterno</label>
+        <input formControlName="paterno" name="paterno" type="text" class="form-control " placeholder="Apellido paterno" required>
+      </div>
+      <div class="form-group ">
+        <label>Apellido materno</label>
+        <input formControlName="materno" name="materno" type="text" class="form-control " placeholder="Apellido materno" required>
+      </div>
+      <div class="form-group ">
+        <label>Nombres</label>
+        <input formControlName="nombres" name="nombres" type="text" class="form-control " placeholder="Nombres" required>
+      </div>
+      <div class="form-group ">
+        <label>Rut o CI</label>
+        <input formControlName="ci" name="ci" type="text" class="form-control " placeholder="RUT o CI" required minlength="3" >
+      </div>
+      <div class="form-group ">
+        <label>País</label>
+        <select formControlName="pais" name="pais" class="form-control" required >
+          <option value="Chile">Chile</option>
 
-  <div class="registro" *ngIf="!_usuario.usuario.id_usuario">
-    <h2>Registro de Usuario</h2>
-    <div class="form-group ">
-      <label>Correo electrónico</label>
-      <input type="email" class="form-control " placeholder="Ingrese Correo" [(ngModel)]="usuario.correo" >
-    </div>
-    <div class="form-group "> 
-      <label>Contraseña</label>
-      <input type="password" class="form-control " placeholder="Contraseña" [(ngModel)]="usuario.clave" >
-    </div>
-    <hr>
-    <div class="form-group ">
-      <label>Apellido paterno</label>
-      <input type="text" class="form-control " placeholder="Apellido paterno" [(ngModel)]="usuario.paterno" >
-    </div>
-    <div class="form-group ">
-      <label>Apellido materno</label>
-      <input type="text" class="form-control " placeholder="Apellido materno" [(ngModel)]="usuario.materno" >
-    </div>
-    <div class="form-group ">
-      <label>Nombres</label>
-      <input type="text" class="form-control " placeholder="Nombres" [(ngModel)]="usuario.nombres" >
-    </div>
-    <div class="form-group ">
-      <label>País</label>
-      <select class="form-control" [(ngModel)]="usuario.pais" >
-        <option value="Chile">Chile</option>
-        
-      </select>
-    </div>
-    <button class="btn btn-success " (click)="guardar_usuario()" [disabled]="valido()" >{{ (!cargando ? 'Registrar' : 'Cargando ...' ) }}</button>
+        </select>
+      </div>
+      <button class="btn btn-success ">{{ (!cargando ? 'Registrar' : 'Cargando ...' ) }}</button>
 
-  </div>
+    </div>
+
+  </form>
+
 
   <div class="registro" *ngIf="_usuario.usuario.id_usuario">
 

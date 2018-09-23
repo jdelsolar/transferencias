@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UsuarioService, Usuario } from "../../services/usuario.service";
 import { Router } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-registro",
@@ -12,9 +13,32 @@ export class RegistroComponent implements OnInit {
   cargando: boolean = false;
   usuario: Usuario = {};
 
+  forma: FormGroup;
+  
+
   constructor(public _usuario: UsuarioService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.forma = new FormGroup({
+      paterno: new FormControl(null, Validators.required),
+      materno: new FormControl(null, Validators.required),
+      nombres: new FormControl(null, Validators.required),
+      pais: new FormControl(null, Validators.required),
+      correo: new FormControl(null, [Validators.required, Validators.email]),
+      clave: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      ci: new FormControl(null, [Validators.required, Validators.minLength(3)])
+    });
+  }
+
+  enviar(){
+    
+    if (this.forma.valid) {
+      this.usuario = this.forma.value;
+      this.guardar_usuario();
+    }
+    
+  }
 
   guardar_usuario() {
     this.cargando = true;

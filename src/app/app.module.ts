@@ -18,6 +18,7 @@ import { TransferenciasComponent } from './pages/transferencias/transferencias.c
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { SimulaCambioComponent } from './pages/inicio/simula-cambio/simula-cambio.component';
 import { LoginInicioComponent } from './pages/inicio/login-inicio/login-inicio.component';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { LoginInicioComponent } from './pages/inicio/login-inicio/login-inicio.c
     TransferenciasComponent,
     InicioComponent,
     SimulaCambioComponent,
-    LoginInicioComponent
+    LoginInicioComponent,
+    RecuperarComponent
   ],
   imports: [
     BrowserModule,

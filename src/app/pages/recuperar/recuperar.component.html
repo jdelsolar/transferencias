@@ -1,0 +1,42 @@
+<div class="container fondo-azul imagen-fondo h600 py-5 d-flex justify-content-center ">
+
+  <div class="recuperar h300 p-3">
+    <h4 class="texto-azul">Recuperar contraseña</h4>
+    <form ngNativeValidate [formGroup]="forma" (submit)="enviar()">
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input formControlName="correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" required>
+        <small class="form-text text-muted">Escriba el correo registrado.</small>
+      </div>
+      <div class="form-group">
+        <label>Clave de verificación</label>
+        <div class="input-group ">
+          <input formControlName="clave" name="clave" type="text" class="form-control" placeholder="Clave de verificación" required>
+          <div class="input-group-append">
+            <button (click)="enviarClave()" type="button" class="btn btn-outline-primary" [disabled]="enviando">{{ (!enviando)
+              ? 'Enviar clave' : 'Enviando ...' }}</button>
+          </div>
+        </div>
+        <small class="form-text text-muted">Presione "Enviar clave", la clave de verificación será enviada a tu correo.</small>
+      </div>
+      <div class="form-group">
+        <label>Nueva contraseña</label>
+        <input formControlName="pass" name="pass" type="password" class="form-control" placeholder="Nueva contraseña" required minlength="6">
+        <small class="form-text text-muted">Escriba aquí su nueva contraseña</small>
+      </div>
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input formControlName="confirm" name="confirm" type="password" class="form-control" placeholder="Confirme contraseña" required
+          minlength="6">
+        <small class="form-text text-muted">Confirme su contraseña</small>
+      </div>
+      <div *ngIf="forma.hasError('sonIguales') && ( !forma.pristine ) " class="form-group">
+        <p class="text-danger">
+          Las contraseñas deben ser iguales
+        </p>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="cambiando">{{ cambiando ? 'Enviando ...' : 'Cambiar
+        contraseña'}}</button>
+    </form>
+  </div>
+</div>
