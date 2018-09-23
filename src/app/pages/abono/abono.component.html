@@ -12,7 +12,7 @@
 
 <div class="container principal" *ngIf="_usuario.usuario.id_usuario">
   <h3>Abono a tu cuenta</h3>
-  <form [formGroup]="forma" (ngSubmit)="enviar()">
+  <form ngNativeValidate [formGroup]="forma" (ngSubmit)="enviar()">
     <div class="login">
       <p>
         Debes realizar un depósito en la siguiente cuenta y luego adjuntanos tu depósito.
@@ -41,7 +41,7 @@
       </div>
       <div class="form-group">
         <label>Monto a transferir</label>
-        <input formControlName="monto" name="monto" type="text" class="form-control" (change)="calcular()">
+        <input formControlName="monto" name="monto" type="number" class="form-control" (change)="calcular()" min="15000" >
       </div>
 
       <div class="row">
@@ -88,40 +88,40 @@
       <div class="login mb-2">
         <div class="form-group">
           <label>Pais</label>
-          <select formControlName="pais" name="pais" class="custom-select">
+          <select formControlName="pais" name="pais" class="custom-select" required>
             <option value="Venezuela">Venezuela</option>
           </select>
         </div>
         <div class="form-group">
           <label>Nombre, Apellido o Razón Social</label>
-          <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre">
+          <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" required>
         </div>
         <div class="form-group">
           <label>CI o RIF</label>
-          <input formControlName="ci" name="ci" type="text" class="form-control" placeholder="CI o RIF">
+          <input formControlName="ci" name="ci" type="text" class="form-control" placeholder="CI o RIF" required>
         </div>
 
         <div class="form-group">
           <label>Banco</label>
-          <select formControlName="banco" name="banco" class="custom-select">
+          <select formControlName="banco" name="banco" class="custom-select" required>
             <option *ngFor="let banco of _transferencias.bancos" [ngClass]="( banco.tiempo == '24 hrs') ? 'text-primary' : 'text-danger'"
               [value]="banco.nombre">{{ banco.nombre }}</option>
           </select>
         </div>
         <div class="form-group">
           <label>Tipo de cuenta</label>
-          <select formControlName="tipocuenta" name="tipocuenta" class="custom-select">
+          <select formControlName="tipocuenta" name="tipocuenta" class="custom-select" required>
             <option value="Corriente">Corriente</option>
             <option value="Ahorro">Ahorro</option>
           </select>
         </div>
         <div class="form-group">
           <label>N° de cuenta</label>
-          <input formControlName="ncuenta" name="ncuenta" type="text" class="form-control" placeholder="N° de cuenta">
+          <input formControlName="ncuenta" name="ncuenta" type="text" class="form-control" placeholder="N° de cuenta" required>
         </div>
         <div class="form-group">
           <label>Correo</label>
-          <input formControlName="correo" name="correo" type="text" class="form-control" placeholder="Correo">
+          <input formControlName="correo" name="correo" type="text" class="form-control" placeholder="Correo" >
         </div>
 
       </div>
@@ -129,7 +129,7 @@
     <div id="destinatarios" class="tab-content"></div>
 
     <div class="custom-control custom-checkbox pb-3">
-      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1">
+      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1" required >
       <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
     </div>
 
