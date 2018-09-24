@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametrosService } from '../../../services/parametros.service';
 import { Subscription } from 'rxjs';
-import { isNumber } from 'util';
 
 
 

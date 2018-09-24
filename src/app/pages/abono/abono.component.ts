@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UsuarioService } from "../../services/usuario.service";
 import {
   TransferenciasService,
@@ -12,13 +12,15 @@ import { Router } from "@angular/router";
 import { SubirArchivoService } from "../../services/subir-archivo.service";
 
 import swal from 'sweetalert';
+import { Subscription } from "rxjs";
+import { ParametrosService } from "../../services/parametros.service";
 
 @Component({
   selector: "app-abono",
   templateUrl: "./abono.component.html",
   styleUrls: ["./abono.component.css"]
 })
-export class AbonoComponent implements OnInit {
+export class AbonoComponent implements OnInit, OnDestroy {
   imagen: string = null;
 
   imagenSubir: File;
@@ -29,22 +31,30 @@ export class AbonoComponent implements OnInit {
 
   btnCargando: boolean = false;
 
+  tasa: string;
+  subscribe: Subscription;
+
   constructor(
     public _usuario: UsuarioService,
     public _transferencias: TransferenciasService,
     private _router:Router,
-    public _subir:SubirArchivoService
+    public _subir:SubirArchivoService,
+    public _parametros:ParametrosService
   ) {}
+
+  ngOnDestroy() {
+    this.subscribe.unsubscribe();
+  }
 
   ngOnInit() {
     this._transferencias.obtenerDestinatarios();
 
     this.forma = new FormGroup({
-      monto: new FormControl(null, [
+      monto: new FormControl(15000, [
         Validators.required,
-        Validators.min(10000)
+        Validators.min(15000)
       ]),
-      tasa: new FormControl({ value: "371", disabled: true }),
+      tasa: new FormControl({ value: "", disabled: true }, Validators.required),
       montofinal: new FormControl({ value: "", disabled: true }),
       pais: new FormControl("Venezuela", Validators.required),
       nombre: new FormControl(null, [
@@ -55,9 +65,17 @@ export class AbonoComponent implements OnInit {
       banco: new FormControl(null, Validators.required),
       tipocuenta: new FormControl(null, Validators.required),
       ncuenta: new FormControl(null, Validators.required),
-      correo: new FormControl(null, [Validators.required, Validators.email]),
-      declaro: new FormControl(false),
+      correo: new FormControl(null, [ Validators.email]),
+      declaro: new FormControl(false, Validators.required),
       misDestinatarios: new FormControl()
+    });
+
+    this.subscribe = this._parametros.observarTasa().subscribe( (resp:string) => {
+      console.log(resp);
+      
+      this.tasa = resp;
+      this.forma.get('tasa').setValue(this.tasa);
+      this.calcular();
     });
   }
 
@@ -243,6 +261,8 @@ export class AbonoComponent implements OnInit {
 
               }
 
+            } else {
+              swal(resp.mensaje);
             }
           },
           err => console.log("Error ", err)

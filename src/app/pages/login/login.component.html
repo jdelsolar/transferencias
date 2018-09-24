@@ -40,7 +40,10 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit"  [disabled]="( cargando || !correo || !clave ) ? 'disabled' : '' ">
         {{ ( cargando ) ? 'Cargando ...' : 'Ingrese'  }}
     </button>
-    <p class="mt-5 mb-3 text-muted"></p>
+    <p class="mt-5 mb-3 text-muted">
+      No recuerdas tu Contraseña? <a [routerLink]="'/recuperar'" >Haz click aquí.</a>
+    </p>
+   
   </form>
-
+  
 </div>

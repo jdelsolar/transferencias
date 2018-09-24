@@ -14,9 +14,12 @@
       {{ ( cargando ) ? 'Cargando ...' : 'Ingrese' }}
     </button>
 
-    <div class="pie pt-3">
+    <p class="mt-5 mb-3 text-muted">
       ¿Aún no estás registrado? <a class="link-pie" routerLink="/registro">Crea tu cuenta</a>
-    </div>
+    </p>
+    <p class="mt-5 mb-3 text-muted">
+      No recuerdas tu Contraseña? <a [routerLink]="'/recuperar'" >Haz click aquí.</a>
+    </p>
   </form>
 
 

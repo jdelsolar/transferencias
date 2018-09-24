@@ -22,7 +22,7 @@
 }
 
 .paso {
-    height: 220px;
+    /* height: 220px; */
     display: table-cell;
     vertical-align: middle;
     padding-left: 3rem;
@@ -31,6 +31,10 @@
 .paso1 {
     background-color: #00aeeb;
     color: #ffffff;
+}
+
+.h110 {
+    height: 110px;
 }
 .paso1 h3 {
     color: #ffffff;

@@ -9,6 +9,7 @@ import { ContactoComponent } from "./pages/contacto/contacto.component";
 import { AbonoComponent } from "./pages/abono/abono.component";
 import { TransferenciasComponent } from "./pages/transferencias/transferencias.component";
 import { InicioComponent } from "./pages/inicio/inicio.component";
+import { RecuperarComponent } from "./pages/recuperar/recuperar.component";
 
 
 const app_routes: Routes = [
@@ -20,6 +21,7 @@ const app_routes: Routes = [
   { path: "contacto", component: ContactoComponent },
   { path: "abono", component: AbonoComponent },
   { path: "transferencias", component: TransferenciasComponent },
+  { path: "recuperar", component: RecuperarComponent },
   { path: "**", pathMatch: "full", redirectTo: 'inicio' }
 ];
 
