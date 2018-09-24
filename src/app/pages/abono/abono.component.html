@@ -1,0 +1,147 @@
+<div class="container principal " *ngIf="!_usuario.usuario.id_usuario">
+
+  <h2>
+    Regístrate
+  </h2>
+  <p>
+    Para realizar transferencias debes estar registrado. Si ya estás registrado
+    <a routerLink="login">ingresa acá</a>
+  </p>
+
+</div>
+
+<div class="container principal" *ngIf="_usuario.usuario.id_usuario">
+  <h3>Abono a tu cuenta</h3>
+  <form ngNativeValidate [formGroup]="forma" (ngSubmit)="enviar()">
+    <div class="login">
+      <p>
+        Debes realizar un depósito en la siguiente cuenta y luego adjuntanos tu depósito.
+      </p>
+      <p>Para transferencia electrónica:</p>
+      <div class="alert alert-dismissible alert-primary">
+        Solicita los datos bancarios de nuestra empresa en las redes sociales: <br>
+          <ul class="list-unstyled sociales" >
+            <li>
+              <a href="https://www.Instagram.com/123depositos/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="https://wa.me/56935689629" target="_blank"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+            </li>
+            <li>
+              <a href="mailto:contacto@123depositos.com" target="_blank"><i class="far fa-envelope"></i> contacto@123depositos.com</a>
+            </li>
+          </ul>
+
+      </div>
+      <p>O depositos en caja en sucursales banco Santander (
+        <a href="https://www.santander.cl/sucursales_santander/sucursales/index.asp" target="_blank">Ver sucursales más cercanas</a>)</p>
+
+      <div class="form-group">
+        <label for="exampleInputFile">Adjuntar comprobante</label>
+        <div>
+          <img *ngIf="imagen" [src]="imagen" width="100px">
+        </div>
+        <input type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file" aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
+      </div>
+      <div class="form-group">
+        <label>Monto a transferir</label>
+        <input formControlName="monto" name="monto" type="number" class="form-control" (change)="calcular()" min="15000" >
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6 px-3">
+          <div class="form-group">
+
+            <label>Tasa de conversión (Bs)</label>
+            <input formControlName="tasa" name="tasa" type="text" class="form-control" placeholder="Tasa">
+          </div>
+        </div>
+        <div class="col-xs-6 px-3">
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Monto final (Bs)</label>
+        <input formControlName="montofinal" name="montofinal" type="text" class="form-control" placeholder="">
+      </div>
+
+
+    </div>
+    <hr>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="#destinatarios" (click)="pestanaDestinatarios('lista')">Mis destinatarios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#nuevo" (click)="pestanaDestinatarios('nuevo')">Nuevo destinatario</a>
+      </li>
+
+    </ul>
+    <div class="tab-content">
+      <h3 *ngIf="destinatario === 'nuevo'" >
+        Nuevo destinatario:
+      </h3>
+      <div class="form-group" *ngIf="destinatario === 'lista'">
+        <label>Seleccione destinatario</label>
+        <select (change)="cambioDestinatario()" formControlName="misDestinatarios" name="misDestinatarios" class="custom-select">
+          <option *ngFor="let destinatario of _transferencias.misDestinatarios" [value]="destinatario.id">{{ destinatario.nombre
+            }}</option>
+        </select>
+      </div>
+      <div class="login mb-2">
+        <div class="form-group">
+          <label>Pais</label>
+          <select formControlName="pais" name="pais" class="custom-select" required>
+            <option value="Venezuela">Venezuela</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre, Apellido o Razón Social</label>
+          <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" required>
+        </div>
+        <div class="form-group">
+          <label>CI o RIF</label>
+          <input formControlName="ci" name="ci" type="text" class="form-control" placeholder="CI o RIF" required>
+        </div>
+
+        <div class="form-group">
+          <label>Banco</label>
+          <select formControlName="banco" name="banco" class="custom-select" required>
+            <option *ngFor="let banco of _transferencias.bancos" [ngClass]="( banco.tiempo == '24 hrs') ? 'text-primary' : 'text-danger'"
+              [value]="banco.nombre">{{ banco.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo de cuenta</label>
+          <select formControlName="tipocuenta" name="tipocuenta" class="custom-select" required>
+            <option value="Corriente">Corriente</option>
+            <option value="Ahorro">Ahorro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>N° de cuenta</label>
+          <input formControlName="ncuenta" name="ncuenta" type="text" class="form-control" placeholder="N° de cuenta" required>
+        </div>
+        <div class="form-group">
+          <label>Correo</label>
+          <input formControlName="correo" name="correo" type="text" class="form-control" placeholder="Correo" >
+        </div>
+
+      </div>
+    </div>
+    <div id="destinatarios" class="tab-content"></div>
+
+    <div class="custom-control custom-checkbox pb-3">
+      <input formControlName="declaro" name="declaro" type="checkbox" class="custom-control-input" id="customCheck1" required >
+      <label class="custom-control-label" for="customCheck1">Declaro que ya transferí.</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="btnCargando" > {{ btnCargando ? 'Cargando ...' : 'Transferir' }} </button>
+  </form>
+
+</div>
