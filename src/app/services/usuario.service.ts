@@ -32,7 +32,7 @@ export class UsuarioService {
   }
 
   login(correo: string, clave: string) {
-    let promesa = new Promise((resolve, reject) => {
+    const promesa = new Promise((resolve, reject) => {
       this.http
         .post(this.api + "/usuario/login", { correo: correo, clave: clave })
         .subscribe(
@@ -58,11 +58,11 @@ export class UsuarioService {
   }
 
   enviarClaveVerificacion(correo: string) {
-    let url = URL_SERVICIOS + "/usuario/enviar_cod_cambio";
+    const url = URL_SERVICIOS + "/usuario/enviar_cod_cambio";
     return this.http.post(url, { correo: correo });
   }
-  cambiarClave(correo:string, confirm:string, nueva:string) {
-    let url = URL_SERVICIOS + "/usuario/cambiar_clave";
+  cambiarClave(correo: string, confirm: string, nueva: string) {
+    const url = URL_SERVICIOS + "/usuario/cambiar_clave";
     return this.http.post( url, { correo: correo, confirm: confirm, nueva: nueva } );
   }
 }
