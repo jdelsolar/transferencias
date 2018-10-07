@@ -15,4 +15,21 @@ export class TransferenciasComponent implements OnInit {
     this._transf.obtenerTransferencias(  );
   }
 
+  // estados = ["Aprobado", "Rechazado", "Pendiente", "Finalizado"];
+
+  colorEstado(estado: string) {
+    if (estado === "Aprobado") {
+      return "badge badge-pill badge-success";
+    }
+    if (estado === "Rechazado") {
+      return "badge badge-pill badge-danger";
+    }
+    if (estado === "Pendiente") {
+      return "badge badge-pill badge-info";
+    }
+    if (estado === "Finalizado") {
+      return "badge badge-pill badge-primary";
+    }
+  }
+
 }

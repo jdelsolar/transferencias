@@ -11,30 +11,33 @@
 </div>
 
 
-
-<div class="container h600" *ngIf="_usuario.usuario.id_usuario" >
+<div class="container h600" *ngIf="_usuario.usuario.id_usuario">
   <h3>
     Mis transferencias
   </h3>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead class="thead-azul">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Banco</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Tasa</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
 
-  <div *ngFor="let tran of _transf.misTransferencias" class="row separador">
+        <tr *ngFor="let tran of _transf.misTransferencias">
+          <td>{{ tran.destinatario.nombre }}</td>
+          <td> {{ tran.destinatario.banco }} </td>
+          <td> {{ tran.transferencia.monto | chp }} </td>
+          <td> {{ tran.transferencia.tasa }} </td>
+          <td> <span [ngClass]="colorEstado(tran.transferencia.estado)"> {{ tran.transferencia.estado }} </span> </td>
+        </tr>
 
-    <div class="col-sm">
-      {{ tran.destinatario.nombre }}
-    </div>
-    <div class="col-sm">
-      {{ tran.destinatario.banco }}
-    </div>
-    <div class="col-sm">
-      CL$ {{ tran.transferencia.monto }}
-    </div>
-    <div class="col-sm">
-      Tasa: Bs$ {{ tran.transferencia.tasa }}
-    </div>
-    <div class="col-sm">
-      {{ tran.transferencia.estado }}
-    </div>
-
+      </tbody>
+    </table>
   </div>
 
 </div>

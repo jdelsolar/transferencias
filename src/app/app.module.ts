@@ -21,6 +21,7 @@ import { LoginInicioComponent } from './pages/inicio/login-inicio/login-inicio.c
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { DepositoComponent } from './pages/deposito/deposito.component';
 import { DestinatarioComponent } from './shared/destinatario/destinatario.component';
+import { ChpPipe } from './pipes/chp.pipe';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { DestinatarioComponent } from './shared/destinatario/destinatario.compon
     LoginInicioComponent,
     RecuperarComponent,
     DepositoComponent,
-    DestinatarioComponent
+    DestinatarioComponent,
+    ChpPipe
   ],
   imports: [
     BrowserModule,

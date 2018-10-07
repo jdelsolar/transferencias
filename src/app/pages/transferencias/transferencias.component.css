@@ -1,3 +1,12 @@
 .separador {
     border-top: 1px solid #ebebeb;
 }
+.thead-azul {
+    color: #fff;
+    background-color: #00aeeb;
+    border-color: #00aeeb;
+}
+
+.table {
+    background-color: #e8f7ff;
+}
