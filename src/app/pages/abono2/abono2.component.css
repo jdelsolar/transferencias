@@ -1,0 +1,18 @@
+
+.fondo-blanco {
+    background-color: white;
+    max-width: 800px;
+}
+.list-inline-item:not(:last-child) {
+    margin-right: 2rem;
+}
+
+.alert-secondary { 
+    background-color: #f5f5f5;
+    color: #495057;
+}
+
+.btn-des {
+    padding: 0.3rem 0.3rem;
+    font-size: 0.8rem;
+}

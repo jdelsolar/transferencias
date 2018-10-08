@@ -1,5 +1,102 @@
-<div class="container-fluid fondo-azul imagen-fondo h600">
+<div class="container-fluid fondo-azul imagen-fondo h600 ">
   &nbsp;
+
+  <div class="container fondo-blanco " *ngIf="!_usuario.usuario.id_usuario">
+
+    <h2>
+      Regístrate
+    </h2>
+    <p>
+      Para realizar transferencias debes estar registrado. Si ya estás registrado
+      <a routerLink="login">ingresa acá</a>
+    </p>
+
+  </div>
+
+  <div *ngIf="_usuario.usuario.id_usuario" class="container fondo-blanco p-3">
+    <h4>Deposito a cuenta corriente</h4>
+    <p>
+      Debes realizar un depósito en nuestra cuenta corriente.
+    </p>
+    <div class="alert alert-dismissible alert-primary">
+      Solicita los datos bancarios de nuestra empresa en las redes sociales: <br>
+      <ul class="list-inline sociales">
+        <li class="list-inline-item">
+          <a href="https://www.Instagram.com/123depositos/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://wa.me/56935689629" target="_blank"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="mailto:contacto@123depositos.com" target="_blank"><i class="far fa-envelope"></i>
+            contacto@123depositos.com</a>
+        </li>
+      </ul>
+
+    </div>
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="enviar()">
+
+      <div class="form-group">
+        <label for="exampleInputFile">Adjuntar comprobante</label>
+        <div>
+          <img *ngIf="imagen" [src]="imagen" width="100px">
+        </div>
+        <input type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file"
+          aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
+      </div>
+
+      <div class="alert alert-dismissible alert-secondary">
+        <div class="row">
+
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Monto a transferir</label>
+              <input (change)="calcular()" formControlName="monto" name="monto" type="number" class="form-control" min="15000" required>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Tasa de conversión (Bs)</label>
+              <input formControlName="tasa" name="tasa" type="number" class="form-control" placeholder="Tasa" required>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Monto final (Bs)</label>
+              <input formControlName="montofinal" name="montofinal" type="number" class="form-control" placeholder="" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Seleccione destinatario</label>
+        <div class="input-group">
+          <select formControlName="misDestinatarios" name="misDestinatarios" class="custom-select" aria-describedby="button-addon2" required>
+            <option value="">Seleccione ...</option>
+            <option *ngFor="let destinatario of _transferencias.misDestinatarios" [value]="destinatario.id">{{
+              destinatario.nombre
+            }}</option>
+          </select>
+          <div class="input-group-append" id="button-addon2">
+            <button type="button" class="btn btn-success btn-des" (click)="abrirModal()">
+              <i class="fas fa-plus"></i>
+              Nuevo
+            </button>
+            <button (click)="quitar()" type="button" class="btn btn-danger btn-des">
+              <i class="fas fa-minus"></i>
+              Quitar
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="btnCargando">Transferir</button>
+    </form>
+  </div>
 
   <button #btnModalDestinatarios [hidden]="true" type="button" data-toggle="modal" data-target="#modalDestinatarios">
     Launch demo modal

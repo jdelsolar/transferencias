@@ -16,11 +16,10 @@ export class TransferenciasService {
 
   misDestinatarios: Destinatario[] = [];
 
-
   constructor(private http: HttpClient, private _usuario: UsuarioService) {
     this.obtenerBancos();
 
-    this.obtenerTransferencias( );
+    this.obtenerTransferencias();
   }
 
   obtenerBancos() {
@@ -45,40 +44,52 @@ export class TransferenciasService {
     return this.http.post(url, post);
   }
 
-  agregarTransferencia( transf: Transferencia ){
+  agregarTransferencia(transf: Transferencia) {
     let url = this.api + "/transferencias/agregar_transferencia";
     let post = {
       id_destinatario: transf.id_destinatario,
       imagen: transf.imagen,
       monto: transf.monto,
       tasa: transf.tasa,
-      estado: 'Pendiente',
+      estado: "Pendiente",
       id_usuario: transf.id_usuario
-    }
+    };
     return this.http.post(url, post);
-    
   }
 
-  obtenerTransferencias( ) {
-    let url = this.api + "/transferencias/obtener_transferencias/" + this._usuario.usuario.id_usuario ;
+  obtenerTransferencias() {
+    const url =
+      this.api +
+      "/transferencias/obtener_transferencias/" +
+      this._usuario.usuario.id_usuario;
 
-    this.http.get( url ).subscribe((resp:any) => {
-      if (resp.respuesta){
-        this.misTransferencias = resp.transferencias
+    this.http.get(url).subscribe((resp: any) => {
+      if (resp.respuesta) {
+        this.misTransferencias = resp.transferencias;
       }
     });
   }
 
   obtenerDestinatarios() {
-    let url = this.api + "/transferencias/obtener_destinatarios/" + this._usuario.usuario.id_usuario ;
+    return new Promise((resolve, reject) => {
+      const url =
+        this.api +
+        "/transferencias/obtener_destinatarios/" +
+        this._usuario.usuario.id_usuario;
 
-    this.http.get( url ).subscribe((resp:any) => {
-      if (resp.respuesta){
-        this.misDestinatarios = resp.destinatarios
-      }
+      this.http.get(url).subscribe(
+        (resp: any) => {
+          if (resp.respuesta) {
+            this.misDestinatarios = resp.destinatarios;
+            resolve();
+          }
+        },
+        err => {
+          reject();
+        }
+      );
     });
   }
-  
 }
 
 export interface Transferencia {
@@ -107,7 +118,6 @@ export interface Destinatario {
   fecha?: string;
   id_usuario?: string;
 }
-
 
 interface TransferenciaDestinatario {
   transferencia?: Transferencia;
