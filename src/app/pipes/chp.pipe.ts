@@ -9,7 +9,7 @@ export class ChpPipe implements PipeTransform {
     // Format the output to display any way you want here.
     // For instance:
     if (value !== undefined && value !== null) {
-      return '$ ' + value.toLocaleString('es');
+      return '$ ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     } else {
       return '';
     }

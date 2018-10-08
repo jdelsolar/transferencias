@@ -10,6 +10,7 @@ import { AbonoComponent } from "./pages/abono/abono.component";
 import { TransferenciasComponent } from "./pages/transferencias/transferencias.component";
 import { InicioComponent } from "./pages/inicio/inicio.component";
 import { RecuperarComponent } from "./pages/recuperar/recuperar.component";
+import { Abono2Component } from "./pages/abono2/abono2.component";
 
 
 const app_routes: Routes = [
@@ -22,6 +23,7 @@ const app_routes: Routes = [
   { path: "abono", component: AbonoComponent },
   { path: "transferencias", component: TransferenciasComponent },
   { path: "recuperar", component: RecuperarComponent },
+  { path: "abono2", component: Abono2Component },
   { path: "**", pathMatch: "full", redirectTo: 'inicio' }
 ];
 

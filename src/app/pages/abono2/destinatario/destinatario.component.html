@@ -1,0 +1,78 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Nuevo destinatario</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="guardarDestinatario()">
+      <div class="modal-body">
+        <div class="row">
+
+          <div class="col-sm-5">
+            <div class="form-group">
+              <label>Nombre o Razón social</label>
+              <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese nombre" required>
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>CI o RIF</label>
+              <input formControlName="ci" name="ci" type="text" class="form-control" placeholder="" required>
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>E-mail</label>
+              <input formControlName="correo" name="correo" type="email" class="form-control" placeholder="" required>
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Banco</label>
+              <select formControlName="banco" name="banco" class="custom-select" required>
+                <option value="">Seleccione ...</option>
+                <option *ngFor="let banco of _transferencias.bancos" [ngClass]="( banco.tiempo == '24 hrs') ? 'text-primary' : 'text-danger'"
+                  [value]="banco.nombre">{{ banco.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Tipo de cuenta</label>
+              <select formControlName="tipo_cuenta" name="tipo_cuenta" class="custom-select" required>
+                <option value="">Seleccione ...</option>
+                <option value="Corriente">Corriente</option>
+                <option value="Ahorro">Ahorro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Número de cuenta</label>
+              <input formControlName="ncuenta" name="ncuenta" type="text" class="form-control" placeholder="" required>
+              <small class="form-text text-muted"></small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" type="button" class="btn btn-default">Cancelar</button>
+        <button type="submit" class="btn btn-success">Aceptar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -91,6 +91,8 @@ export interface Transferencia {
   fecha?: string;
   fecha_estado?: string;
   id_usuario?: string;
+  imagen_deposito?: string;
+  motivo_rechazo?: string;
 }
 
 export interface Destinatario {

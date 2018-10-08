@@ -33,7 +33,16 @@
           <td> {{ tran.destinatario.banco }} </td>
           <td> {{ tran.transferencia.monto | chp }} </td>
           <td> {{ tran.transferencia.tasa }} </td>
-          <td> <span [ngClass]="colorEstado(tran.transferencia.estado)"> {{ tran.transferencia.estado }} </span> </td>
+          <td>
+            <span [ngClass]="colorEstado(tran.transferencia.estado)"> {{ tran.transferencia.estado }} </span>
+            <a *ngIf="tran.transferencia.estado === 'Finalizado'" [href]="tran.transferencia.imagen_deposito | imagen"
+              target="_blank" title="Ver comprobante">
+              <i class="far fa-file pl-1"></i>
+            </a>
+            <a *ngIf="tran.transferencia.estado === 'Rechazado'" [title]="tran.transferencia.motivo_rechazo">
+              <i class="fas fa-info-circle pl-1"></i>
+            </a>
+          </td>
         </tr>
 
       </tbody>

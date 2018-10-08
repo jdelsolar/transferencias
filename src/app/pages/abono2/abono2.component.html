@@ -1,0 +1,11 @@
+<div class="container-fluid fondo-azul imagen-fondo h600">
+  &nbsp;
+
+  <button #btnModalDestinatarios [hidden]="true" type="button" data-toggle="modal" data-target="#modalDestinatarios">
+    Launch demo modal
+  </button>
+  <div class="modal" id="modalDestinatarios">
+    <app-destinatario (cerrar)="cerrarModal()" (destinatario)="modalDestinatario($event)"></app-destinatario>
+  </div>
+
+</div>

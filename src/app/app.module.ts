@@ -20,8 +20,10 @@ import { SimulaCambioComponent } from './pages/inicio/simula-cambio/simula-cambi
 import { LoginInicioComponent } from './pages/inicio/login-inicio/login-inicio.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { DepositoComponent } from './pages/deposito/deposito.component';
-import { DestinatarioComponent } from './shared/destinatario/destinatario.component';
 import { ChpPipe } from './pipes/chp.pipe';
+import { ImagenPipe } from './pipes/imagen.pipe';
+import { Abono2Component } from './pages/abono2/abono2.component';
+import { DestinatarioComponent } from './pages/abono2/destinatario/destinatario.component';
 
 
 @NgModule({
@@ -41,8 +43,10 @@ import { ChpPipe } from './pipes/chp.pipe';
     LoginInicioComponent,
     RecuperarComponent,
     DepositoComponent,
-    DestinatarioComponent,
-    ChpPipe
+    ChpPipe,
+    ImagenPipe,
+    Abono2Component,
+    DestinatarioComponent
   ],
   imports: [
     BrowserModule,
