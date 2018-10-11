@@ -1,7 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from "@angular/core";
 import { UsuarioService } from "../../services/usuario.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { TransferenciasService, Destinatario } from "../../services/transferencias.service";
+import {
+  TransferenciasService,
+  Destinatario
+} from "../../services/transferencias.service";
 import { Subscription } from "rxjs";
 import { ParametrosService } from "../../services/parametros.service";
 import { SubirArchivoService } from "../../services/subir-archivo.service";
@@ -12,7 +15,7 @@ import { Router } from "@angular/router";
   templateUrl: "./abono2.component.html",
   styleUrls: ["./abono2.component.css"]
 })
-export class Abono2Component implements OnInit {
+export class Abono2Component implements OnInit, OnDestroy {
   @ViewChild("btnModalDestinatarios")
   btnModalDestinatarios: ElementRef;
   imagen: string = null;
@@ -51,6 +54,10 @@ export class Abono2Component implements OnInit {
       });
   }
 
+  ngOnDestroy() {
+    this.subscribe.unsubscribe();
+  }
+
   cerrarModal() {
     this.btnModalDestinatarios.nativeElement.click();
   }
@@ -59,9 +66,9 @@ export class Abono2Component implements OnInit {
     console.log("destinatario");
     console.log(destinatario);
     this.btnModalDestinatarios.nativeElement.click();
-    this._transferencias.obtenerDestinatarios().then( () => {
-      this._transferencias.misDestinatarios.forEach( dest => {
-        if ( dest.id === destinatario.id) {
+    this._transferencias.obtenerDestinatarios().then(() => {
+      this._transferencias.misDestinatarios.forEach(dest => {
+        if (dest.id === destinatario.id) {
           this.forma.get("misDestinatarios").setValue(dest.id);
           return;
         }
@@ -95,6 +102,32 @@ export class Abono2Component implements OnInit {
       swal("Seleccione un destinatario");
       return;
     }
+
+    swal({
+      title: "Está Seguro?",
+      text: "Está seguro que desea eliminar el destinatario permanentemente?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: ["Cancelar", "Aceptar"]
+    }).then((val: any) => {
+      if (val) {
+        const id_destinatario = this.forma.get("misDestinatarios").value;
+        this._transferencias.quitar_destinatario(id_destinatario).subscribe(
+          (resp: any) => {
+            if (resp.respuesta) {
+              this._transferencias.obtenerDestinatarios();
+              this.forma.get("misDestinatarios").setValue("");
+              swal(resp.mensaje);
+            } else {
+              swal(resp.mensaje);
+            }
+          },
+          err => {
+            swal("Ocurrió un error");
+          }
+        );
+      }
+    });
   }
 
   calcular() {
@@ -105,9 +138,7 @@ export class Abono2Component implements OnInit {
   }
 
   enviar() {
-
     if (this.forma.valid) {
-
       this.btnCargando = true;
 
       const transferencia = {
@@ -118,43 +149,43 @@ export class Abono2Component implements OnInit {
         id_usuario: this._usuario.usuario.id_usuario
       };
 
-      if ( this.imagenSubir ) {
-        this._subir.subirArchivo( this.imagenSubir ).then( (resp: any) => {
-
-          transferencia.imagen = resp.mensaje.upload_data.file_name;
-          this._transferencias.agregarTransferencia(transferencia).subscribe(
-            (resp2: any) => {
-              if (resp2.respuesta) {
-                // todo bien
-                console.log("todo bien");
-                this._router.navigateByUrl('transferencias');
-                this.btnCargando = false;
-              } else {
-                // algo pasa
-                // console.log("algo pasa");
-                this.btnCargando = false;
-                swal('Error al guardar la transferencia');
-              }
-            },
-            err => console.log("Error ", err)
-          );
-
-        }).catch( err => {
-          // console.log('Error al subir el archivo', err);
-          swal( 'Error al subir el archivo' );
-        });
+      if (this.imagenSubir) {
+        this._subir
+          .subirArchivo(this.imagenSubir)
+          .then((resp: any) => {
+            transferencia.imagen = resp.mensaje.upload_data.file_name;
+            this._transferencias.agregarTransferencia(transferencia).subscribe(
+              (resp2: any) => {
+                if (resp2.respuesta) {
+                  // todo bien
+                  console.log("todo bien");
+                  this._router.navigateByUrl("transferencias");
+                  this.btnCargando = false;
+                } else {
+                  // algo pasa
+                  // console.log("algo pasa");
+                  this.btnCargando = false;
+                  swal("Error al guardar la transferencia");
+                }
+              },
+              err => console.log("Error ", err)
+            );
+          })
+          .catch(err => {
+            // console.log('Error al subir el archivo', err);
+            swal("Error al subir el archivo");
+          });
       } else {
-
         this._transferencias.agregarTransferencia(transferencia).subscribe(
           (resp2: any) => {
             if (resp2.respuesta) {
               // todo bien
               // console.log("todo bien");
-              this._router.navigateByUrl('transferencias');
+              this._router.navigateByUrl("transferencias");
             } else {
               // algo pasa
               console.log("algo pasa");
-              swal( 'Error al guardar la transferencia' );
+              swal("Error al guardar la transferencia");
             }
           },
           err => console.log("Error ", err)

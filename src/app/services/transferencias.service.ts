@@ -25,13 +25,13 @@ export class TransferenciasService {
   obtenerBancos() {
     this.http.get("assets/data/bancos.json").subscribe((resp: any) => {
       this.bancos = resp.bancos;
-      //console.log( this.bancos );
+      // console.log( this.bancos );
     });
   }
 
   agregarDestinatario(destinatario: Destinatario) {
-    let url = this.api + "/transferencias/agregar_destinatario";
-    let post = {
+    const url = this.api + "/transferencias/agregar_destinatario";
+    const post = {
       pais: destinatario.pais,
       nombre: destinatario.nombre,
       ci: destinatario.ci,
@@ -45,14 +45,15 @@ export class TransferenciasService {
   }
 
   agregarTransferencia(transf: Transferencia) {
-    let url = this.api + "/transferencias/agregar_transferencia";
-    let post = {
+    const url = this.api + "/transferencias/agregar_transferencia";
+    const post = {
       id_destinatario: transf.id_destinatario,
       imagen: transf.imagen,
       monto: transf.monto,
       tasa: transf.tasa,
       estado: "Pendiente",
-      id_usuario: transf.id_usuario
+      id_usuario: transf.id_usuario,
+      token: this._usuario.usuario.token
     };
     return this.http.post(url, post);
   }
@@ -89,6 +90,16 @@ export class TransferenciasService {
         }
       );
     });
+  }
+
+  quitar_destinatario(id_destinatario: string) {
+    const url =
+      URL_SERVICIOS +
+      "/transferencias/quitar_destinatario/" +
+      this._usuario.usuario.id_usuario +
+      "/" +
+      this._usuario.usuario.token;
+    return this.http.post(url, { id_destinatario: id_destinatario });
   }
 }
 
