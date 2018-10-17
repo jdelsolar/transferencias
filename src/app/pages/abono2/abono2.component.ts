@@ -36,9 +36,9 @@ export class Abono2Component implements OnInit, OnDestroy {
     // this.btnModalDestinatarios.nativeElement.click();
     this._transferencias.obtenerDestinatarios();
     this.forma = new FormGroup({
-      monto: new FormControl(15000, [
+      monto: new FormControl(10000, [
         Validators.required,
-        Validators.min(15000)
+        Validators.min(10000)
       ]),
       tasa: new FormControl({ value: "", disabled: true }, Validators.required),
       montofinal: new FormControl({ value: "", disabled: true }),
