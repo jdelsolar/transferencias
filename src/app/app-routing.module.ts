@@ -10,6 +10,8 @@ import { TransferenciasComponent } from "./pages/transferencias/transferencias.c
 import { InicioComponent } from "./pages/inicio/inicio.component";
 import { RecuperarComponent } from "./pages/recuperar/recuperar.component";
 import { Abono2Component } from "./pages/abono2/abono2.component";
+import { PruebaPagoComponent } from "./pages/prueba-pago/prueba-pago.component";
+import { FinalizadoComponent } from "./pages/finalizado/finalizado.component";
 
 
 const app_routes: Routes = [
@@ -22,6 +24,8 @@ const app_routes: Routes = [
   { path: "abono", component: Abono2Component },
   { path: "transferencias", component: TransferenciasComponent },
   { path: "recuperar", component: RecuperarComponent },
+  { path: "prueba", component: PruebaPagoComponent },
+  { path: "finalizado", component: FinalizadoComponent },
   { path: "**", pathMatch: "full", redirectTo: 'inicio' }
 ];
 

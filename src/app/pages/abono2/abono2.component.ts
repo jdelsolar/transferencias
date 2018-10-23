@@ -5,10 +5,13 @@ import {
   TransferenciasService,
   Destinatario
 } from "../../services/transferencias.service";
-import { Subscription } from "rxjs";
+import { Subscription, from } from "rxjs";
 import { ParametrosService } from "../../services/parametros.service";
 import { SubirArchivoService } from "../../services/subir-archivo.service";
 import { Router } from "@angular/router";
+import { PagosService } from "../../services/pagos.service";
+
+declare function crear_boton(resp);
 
 @Component({
   selector: "app-abono2",
@@ -29,7 +32,8 @@ export class Abono2Component implements OnInit, OnDestroy {
     public _transferencias: TransferenciasService,
     public _parametros: ParametrosService,
     public _subir: SubirArchivoService,
-    private _router: Router
+    private _router: Router,
+    public _pagos: PagosService
   ) {}
 
   ngOnInit() {
@@ -193,4 +197,19 @@ export class Abono2Component implements OnInit, OnDestroy {
       }
     }
   }
+
+  pagoKhipu() {
+    if ( !this.forma.valid ) {
+      swal("Faltan campos por completar");
+      return;
+    }
+    this._pagos.iniciarPagoKhipu(
+      this.forma.get("misDestinatarios").value,
+      this.forma.get("monto").value,
+      this.forma.get("tasa").value
+    ).then( (resp: any) => {
+      crear_boton(resp);
+    });
+  }
+
 }

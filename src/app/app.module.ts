@@ -24,6 +24,8 @@ import { ChpPipe } from './pipes/chp.pipe';
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { Abono2Component } from './pages/abono2/abono2.component';
 import { DestinatarioComponent } from './pages/abono2/destinatario/destinatario.component';
+import { PruebaPagoComponent } from './pages/prueba-pago/prueba-pago.component';
+import { FinalizadoComponent } from './pages/finalizado/finalizado.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { DestinatarioComponent } from './pages/abono2/destinatario/destinatario.
     ChpPipe,
     ImagenPipe,
     Abono2Component,
-    DestinatarioComponent
+    DestinatarioComponent,
+    PruebaPagoComponent,
+    FinalizadoComponent
   ],
   imports: [
     BrowserModule,

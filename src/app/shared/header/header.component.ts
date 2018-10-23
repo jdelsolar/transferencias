@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  cerrar(){
+  cerrar() {
 
     this._usuario.cerrarSession();
 

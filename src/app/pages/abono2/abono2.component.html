@@ -94,7 +94,10 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-success" [disabled]="btnCargando">Transferir</button>
+      <button type="submit" class="btn btn-success" [disabled]="btnCargando">Ya pagué con <br> transferencia electrónica</button>
+      <button type="button" class="btn boton" (click)="pagoKhipu()" >
+        <img src="https://s3.amazonaws.com/static.khipu.com/buttons/2015/200x75-transparent.png" id="pay-button"/>
+      </button>
     </form>
   </div>
 

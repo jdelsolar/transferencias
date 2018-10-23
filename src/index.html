@@ -55,6 +55,8 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
   <script src="assets/js/bootstrap.min.js"></script>
 
+  <script src="//storage.googleapis.com/installer/khipu-2.0.js"></script>
+
   <script>
 
     function init_collapse() {
@@ -64,7 +66,14 @@
       });
     }
 
-
+    function crear_boton(resp) {
+      KhipuLib.startKhipu(
+        resp.url,
+        resp.id,
+        resp.ready_for_terminal,
+        "#pay-button"
+      );
+    }
 
   </script>
 
