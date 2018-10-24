@@ -115,6 +115,7 @@ export interface Transferencia {
   id_usuario?: string;
   imagen_deposito?: string;
   motivo_rechazo?: string;
+  tipo_pago?: string;
 }
 
 export interface Destinatario {
