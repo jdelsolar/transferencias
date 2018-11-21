@@ -78,4 +78,5 @@ export interface Usuario {
   clave?: string;
   token?: any;
   ci?: string;
+  telefono?: string;
 }

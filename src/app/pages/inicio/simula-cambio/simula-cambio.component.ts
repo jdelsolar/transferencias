@@ -8,11 +8,11 @@ import { Subscription } from "rxjs";
   styleUrls: ["./simula-cambio.component.css"]
 })
 export class SimulaCambioComponent implements OnInit, OnDestroy {
-  pesos: string = "10000";
+  pesos: number = 10000;
 
-  bolivares: string;
+  bolivares: number;
 
-  tasa: string;
+  tasa: number;
 
   subscribe: Subscription;
 
@@ -22,7 +22,7 @@ export class SimulaCambioComponent implements OnInit, OnDestroy {
     this.subscribe = this._parametros
       .observarTasa()
       .subscribe((resp: string) => {
-        this.tasa = resp;
+        this.tasa = parseFloat(resp);
         // this.pesos = "15000";
         this.calculaBolivares();
       });
@@ -33,14 +33,15 @@ export class SimulaCambioComponent implements OnInit, OnDestroy {
   }
 
   calculaBolivares() {
-    this.bolivares = (
-      Number.parseFloat(this.pesos) * Number.parseFloat(this.tasa)
-    ).toString();
+    this.bolivares = this.pesos * this.tasa;
+    this.bolivares = Math.round(this.bolivares * 100) / 100.0;
   }
 
   carculaPesos() {
-    this.pesos = (
-      Number.parseFloat(this.bolivares) / Number.parseFloat(this.tasa)
-    ).toString();
+    this.pesos = Math.round(this.bolivares / this.tasa);
+  }
+
+  mostrarTasa() {
+    return this.tasa.toLocaleString();
   }
 }

@@ -1,11 +1,26 @@
 .registro {
-    max-width: 600px;
-    border-color: #35a6e88a;
-    border-width: medium;
-    border-style: solid;
-    padding: 1rem;
+   
     
 }
 .container {
     min-height: 600px;
+}
+
+.texto-derecho {
+    height: 600px;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    color: white;
+    font-size: 2em;
+}
+
+.texto-izquierdo {
+    font-size: 1.5em;
+}
+
+.marco {
+    border: 1px solid;
+    border-color: #ddcccc;
+    
 }
