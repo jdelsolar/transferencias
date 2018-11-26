@@ -26,6 +26,9 @@ import { Abono2Component } from './pages/abono2/abono2.component';
 import { DestinatarioComponent } from './pages/abono2/destinatario/destinatario.component';
 import { PruebaPagoComponent } from './pages/prueba-pago/prueba-pago.component';
 import { FinalizadoComponent } from './pages/finalizado/finalizado.component';
+import { VendedorComponent } from './pages/vendedor/vendedor.component';
+import { BloqueComponent } from './pages/vendedor/componentes/bloque/bloque.component';
+import { LoginVendedorComponent } from './pages/vendedor/componentes/login-vendedor/login-vendedor.component';
 
 
 @NgModule({
@@ -50,7 +53,10 @@ import { FinalizadoComponent } from './pages/finalizado/finalizado.component';
     Abono2Component,
     DestinatarioComponent,
     PruebaPagoComponent,
-    FinalizadoComponent
+    FinalizadoComponent,
+    VendedorComponent,
+    BloqueComponent,
+    LoginVendedorComponent
   ],
   imports: [
     BrowserModule,

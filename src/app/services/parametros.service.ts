@@ -10,13 +10,13 @@ export class ParametrosService {
 
   constructor(private http: HttpClient) { }
 
-  observarTasa():Observable<string> {
+  observarTasa(): Observable<string> {
     return new Observable(observer => {
-      this.obtenerTasa().then((resp:string) => {
+      this.obtenerTasa().then((resp: string) => {
         observer.next(resp);
       });
-      let intervalo = setInterval(() => {
-        this.obtenerTasa().then((resp:string) => {
+      const intervalo = setInterval(() => {
+        this.obtenerTasa().then((resp: string) => {
           observer.next(resp);
         });
       }, 30000);
@@ -25,10 +25,10 @@ export class ParametrosService {
 
   obtenerTasa() {
     return new Promise((resolve, reject) => {
-      let url = URL_SERVICIOS + "/parametros/obtener_tasa";
+      const url = URL_SERVICIOS + "/parametros/obtener_tasa";
       this.http.get(url).subscribe(
         (resp: any) => {
-          //this.tasa = resp.tasa;
+          // this.tasa = resp.tasa;
           resolve(resp.tasa);
         },
         err => reject()

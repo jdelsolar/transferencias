@@ -12,6 +12,8 @@ import { RecuperarComponent } from "./pages/recuperar/recuperar.component";
 import { Abono2Component } from "./pages/abono2/abono2.component";
 import { PruebaPagoComponent } from "./pages/prueba-pago/prueba-pago.component";
 import { FinalizadoComponent } from "./pages/finalizado/finalizado.component";
+import { VendedorComponent } from "./pages/vendedor/vendedor.component";
+import { LoginVendedorComponent } from "./pages/vendedor/componentes/login-vendedor/login-vendedor.component";
 
 
 const app_routes: Routes = [
@@ -26,6 +28,8 @@ const app_routes: Routes = [
   { path: "recuperar", component: RecuperarComponent },
   { path: "prueba", component: PruebaPagoComponent },
   { path: "finalizado", component: FinalizadoComponent },
+  { path: "vendedor", component: VendedorComponent },
+  { path: "login-vendedor", component: LoginVendedorComponent },
   { path: "**", pathMatch: "full", redirectTo: 'inicio' }
 ];
 

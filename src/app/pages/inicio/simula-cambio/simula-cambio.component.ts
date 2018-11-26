@@ -42,6 +42,8 @@ export class SimulaCambioComponent implements OnInit, OnDestroy {
   }
 
   mostrarTasa() {
-    return this.tasa.toLocaleString();
+    if (this.tasa) {
+      return this.tasa.toLocaleString();
+    }
   }
 }

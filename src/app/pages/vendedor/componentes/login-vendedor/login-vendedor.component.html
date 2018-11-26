@@ -1,0 +1,25 @@
+
+
+<div class="container"> 
+
+ 
+    <form ngNativeValidate [formGroup]="forma" (submit)="login()" class="form-signin text-center" >
+      <img class="mb-4" src="assets/img/123depositos_1.png" alt="" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Acceso vendedores</h1>
+      <label  class="sr-only">Correo electrónico</label>
+      <input formControlName="correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" required autofocus>
+      <label class="sr-only">Contraseña</label>
+      <input formControlName="clave" name="clave" type="password" class="form-control" placeholder="Contraseña" required>
+      <div class="checkbox mb-3">
+        <label>
+          <!-- <input type="checkbox" value="remember-me"> Remember me -->
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="vendedor.cargando">
+          Ingresar
+      </button>
+      
+     
+    </form>
+    
+  </div>

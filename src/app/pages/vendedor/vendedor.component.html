@@ -1,0 +1,32 @@
+<div class="container">
+  <h4>{{ vendedor.vendedor.nombre }}</h4>
+  <h5>Vendedor</h5>
+  <hr />
+  <div class="row">
+    <div class="col-auto">
+      <label class="lbl-ind">Ganancia:</label> <span class="valor">{{ porc }} %</span>
+    </div>
+    <div class="col-auto">
+      <label class="lbl-ind">Tasa:</label> <span class="valor"> {{ tasa }} </span>
+    </div>
+  </div>
+  <!-- COMPONENTE BLOQUE -->
+  <div *ngFor="let bloque of vendedor.bloques" >
+    <app-bloque [bloque]="bloque"></app-bloque>
+  </div>
+
+
+  <div>
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">5</a></li>
+      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+    </ul>
+  </div>
+</div>

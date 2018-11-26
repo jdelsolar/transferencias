@@ -1,0 +1,11 @@
+div.container {
+    min-height: 300px;
+}
+span.valor {
+    font-weight: bolder;
+    padding-left: 1rem;
+}
+label.lbl-ind {
+    font-weight: bolder;
+    color: #2fa4e7;
+}
