@@ -14,6 +14,12 @@ export class VendedorService {
 
   bloques: Bloque[] = [];
 
+  cantidad: number = 0;
+
+  paginas: number[] = [];
+
+  actual: number;
+
   constructor(public http: HttpClient, public router: Router) {
     if (localStorage.getItem("vendedor")) {
       this.vendedor = JSON.parse(localStorage.getItem("vendedor"));
@@ -76,13 +82,37 @@ export class VendedorService {
     });
   }
 
-  getBloques() {
+  getTransferenciasPorBloque(bloque: any) {
     return new Promise((resolve, reject) => {
-      const url = URL_SERVICIOS + "/vendedor/get_bloques";
+      const url = URL_SERVICIOS + "/compras/transferencias_por_compra";
+      this.http.post(url, { id_compra: bloque.id }).subscribe( (resp: any) => {
+        resolve(resp);
+      }, err => reject());
+    });
+  }
+
+  getBloques(pag: string = "0") {
+    return new Promise((resolve, reject) => {
+      const url = URL_SERVICIOS + "/vendedor/get_bloques/" + pag;
       this.http.get(url).subscribe(
         (resp: any) => {
           // this.tasa = resp.tasa;
           this.bloques = resp.bloques;
+          // agregar transferencias a los bloques
+          for (let i = 0; i < this.bloques.length; i++) {
+            this.getTransferenciasPorBloque(this.bloques[i]).then( (t: any) => {
+              this.bloques[i].transferencias = t.transferencias;
+              this.bloques[i].total_chp = t.total_chp;
+              this.bloques[i].total_bs = t.total_bs;
+            });
+          }
+
+          this.actual = parseInt(pag, 10);
+          this.cantidad = parseInt(resp.cantidad, 10);
+          this.paginas = [];
+          for (let i = 0; i < this.cantidad; i++) {
+            this.paginas.push(i);
+          }
           resolve();
         },
         err => reject()
@@ -106,4 +136,7 @@ interface Bloque {
   montobs?: string;
   saldo?: string;
   fecha?: string;
+  total_chp?: string;
+  total_bs?: string;
+  transferencias?: any;
 }

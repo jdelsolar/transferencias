@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { TransferenciasService } from "src/app/services/transferencias.service";
+import { VendedorService } from "src/app/services/vendedor.service";
 
 @Component({
   selector: "app-bloque",
@@ -20,5 +21,13 @@ export class BloqueComponent implements OnInit {
   }
   mostrarForma() {
     this._forma = false;
+  }
+
+  calcularBs(monto, tasa) {
+    return Math.round(parseFloat(monto) * parseFloat(tasa) * 100.0) / 100.0;
+  }
+
+  restantes() {
+    return parseFloat(this.bloque.montobs) - parseFloat(this.bloque.total_bs);
   }
 }

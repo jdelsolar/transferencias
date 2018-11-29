@@ -8,7 +8,7 @@
       </div>
       <div class="col-auto">
         <label class="lbl-ind">Bs restantes:</label>
-        <span class="valor">xxx</span>
+        <span class="valor">{{ restantes() }}</span>
       </div>
     </div>
     <hr />
@@ -23,7 +23,7 @@
             <th scope="col">Imagen</th>
             <th scope="col">Bs</th>
             <th scope="col">Tasa</th>
-            <th scope="col">% Ganancia</th>
+            <th scope="col">% Comisión</th>
             <th scope="col">Destinatario</th>
             <th scope="col">CI</th>
             <th scope="col">Banco</th>
@@ -33,66 +33,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
+          <tr *ngFor="let t of bloque.transferencias">
+            <th scope="row">{{ t.transferencia.id }}</th>
+            <td>{{ t.transferencia.nombre_mostrar }}</td>
+            <td>{{ t.transferencia.monto }}</td>
             <td><i class="fa fa-camera"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>Finalizado</td>
+            <td>{{ calcularBs(t.transferencia.monto, t.transferencia.tasa) }}</td>
+            <td>{{ t.transferencia.tasa }}</td>
+            <td></td>
+            <td>{{ t.destinatario.nombre }}</td>
+            <td>{{ t.destinatario.ci }}</td>
+            <td>{{ t.destinatario.banco }}</td>
+            <td>{{ t.destinatario.ncuenta }}</td>
+            <td>{{ t.destinatario.correo }}</td>
+            <td>{{ t.transferencia.estado }}</td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td><i class="fa fa-camera"></i></td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td><i class="fa fa-camera"></i></td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td><input type="text" class="form-control" /></td>
-            <td>the Bird</td>
-            <td><i class="fa fa-camera"></i></td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-          </tr>
+          
         </tbody>
       </table>
     </div>
