@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { TransferenciasService } from "src/app/services/transferencias.service";
 import { VendedorService } from "src/app/services/vendedor.service";
+import { SubirArchivoService } from "src/app/services/subir-archivo.service";
 
 @Component({
   selector: "app-bloque",
@@ -12,7 +13,20 @@ export class BloqueComponent implements OnInit {
 
   _forma = true;
 
-  constructor(public _transferencias: TransferenciasService) {}
+  // @ViewChild("comprobante") comprobante: ElementRef;
+
+  imagen: string = null;
+  imagenSubir: File;
+  comprobante: string = "";
+  adjuntando: boolean = false;
+
+  formDestinatario: boolean = false;
+
+
+  constructor(
+    public _transferencias: TransferenciasService,
+    public _subir: SubirArchivoService
+  ) {}
 
   ngOnInit() {}
 
@@ -30,4 +44,45 @@ export class BloqueComponent implements OnInit {
   restantes() {
     return parseFloat(this.bloque.montobs) - parseFloat(this.bloque.total_bs);
   }
+
+  seleccionarImagen(img: File) {
+    if (img) {
+      this.imagenSubir = img;
+
+      if (img.type.indexOf("image") >= 0) {
+        const reader = new FileReader();
+        const urlTemp = reader.readAsDataURL(img);
+
+        reader.onloadend = () => {
+          this.imagen = reader.result.toString();
+        };
+        this.adjuntando = true;
+        this._subir
+          .subirArchivo(img)
+          .then((resp: any) => {
+            this.comprobante = resp.mensaje.upload_data.file_name;
+            this.adjuntando = false;
+          })
+          .catch(() => {
+            this.comprobante = "";
+            this.imagenSubir = null;
+            this.imagen = null;
+            this.adjuntando = false;
+            swal("Error al subir la imagen");
+          });
+      }
+    } else {
+      this.imagenSubir = null;
+      this.comprobante = "";
+    }
+  }
+
+  ocultar_destinatario( event ) {
+    this.formDestinatario = event;
+  }
+
+  cambiarDestinatario(event: any) {
+    console.log( event );
+  }
+
 }

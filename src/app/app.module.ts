@@ -29,6 +29,7 @@ import { FinalizadoComponent } from './pages/finalizado/finalizado.component';
 import { VendedorComponent } from './pages/vendedor/vendedor.component';
 import { BloqueComponent } from './pages/vendedor/componentes/bloque/bloque.component';
 import { LoginVendedorComponent } from './pages/vendedor/componentes/login-vendedor/login-vendedor.component';
+import { DestinatarioVendedorComponent } from './pages/vendedor/componentes/destinatario-vendedor/destinatario-vendedor.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { LoginVendedorComponent } from './pages/vendedor/componentes/login-vende
     FinalizadoComponent,
     VendedorComponent,
     BloqueComponent,
-    LoginVendedorComponent
+    LoginVendedorComponent,
+    DestinatarioVendedorComponent,
   ],
   imports: [
     BrowserModule,

@@ -85,9 +85,12 @@ export class VendedorService {
   getTransferenciasPorBloque(bloque: any) {
     return new Promise((resolve, reject) => {
       const url = URL_SERVICIOS + "/compras/transferencias_por_compra";
-      this.http.post(url, { id_compra: bloque.id }).subscribe( (resp: any) => {
-        resolve(resp);
-      }, err => reject());
+      this.http.post(url, { id_compra: bloque.id }).subscribe(
+        (resp: any) => {
+          resolve(resp);
+        },
+        err => reject()
+      );
     });
   }
 
@@ -100,7 +103,7 @@ export class VendedorService {
           this.bloques = resp.bloques;
           // agregar transferencias a los bloques
           for (let i = 0; i < this.bloques.length; i++) {
-            this.getTransferenciasPorBloque(this.bloques[i]).then( (t: any) => {
+            this.getTransferenciasPorBloque(this.bloques[i]).then((t: any) => {
               this.bloques[i].transferencias = t.transferencias;
               this.bloques[i].total_chp = t.total_chp;
               this.bloques[i].total_bs = t.total_bs;
@@ -117,6 +120,18 @@ export class VendedorService {
         },
         err => reject()
       );
+    });
+  }
+
+  insertDestinatario(destinatario: any) {
+    const url = URL_SERVICIOS + "/vendedor/insert_destinatario";
+    return new Promise((resolve, reject) => {
+      this.http.post(url, destinatario).subscribe((resp: any) => {
+        resolve(resp);
+      }, err => {
+        reject();
+      });
+
     });
   }
 }
