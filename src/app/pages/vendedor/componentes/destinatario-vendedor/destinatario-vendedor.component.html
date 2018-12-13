@@ -85,6 +85,6 @@
     <button type="button" class="btn btn-default" (click)="ocultar()">
       Cancelar
     </button>
-    <button type="submit" class="btn btn-success">Aceptar</button>
+    <button type="submit" class="btn btn-success" [disabled]="cargando">Aceptar</button>
   </div>
 </form>

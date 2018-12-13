@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { TransferenciasService } from "src/app/services/transferencias.service";
 import { VendedorService } from "src/app/services/vendedor.service";
 import { SubirArchivoService } from "src/app/services/subir-archivo.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-bloque",
@@ -22,13 +23,20 @@ export class BloqueComponent implements OnInit {
 
   formDestinatario: boolean = false;
 
+  forma: FormGroup;
+
 
   constructor(
     public _transferencias: TransferenciasService,
-    public _subir: SubirArchivoService
+    public _subir: SubirArchivoService,
+    public _vendedor: VendedorService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.forma = new FormGroup({
+      id_destinatario: new FormControl("", Validators.required)
+    });
+  }
 
   ocultarForma() {
     this._forma = true;
@@ -83,6 +91,8 @@ export class BloqueComponent implements OnInit {
 
   cambiarDestinatario(event: any) {
     console.log( event );
+    this.forma.get("id_destinatario").setValue(event);
+    this.formDestinatario = false;
   }
 
 }

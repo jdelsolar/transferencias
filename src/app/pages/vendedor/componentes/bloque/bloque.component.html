@@ -54,78 +54,95 @@
       </table>
     </div>
     <div class="forma" [hidden]="_forma">
-      <button
-        class="btn btn-default btn-sm float-right"
-        (click)="ocultarForma()"
-      >
-        <i class="fa fa-minus"></i>
-      </button>
-      <div class="row">
-        <div class="col-auto">
-          <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" class="form-control" placeholder="Nombre" />
+      <form [formGroup]="forma">
+        <button
+          class="btn btn-default btn-sm float-right"
+          (click)="ocultarForma()"
+        >
+          <i class="fa fa-minus"></i>
+        </button>
+        <div class="row">
+          <div class="col-auto">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" placeholder="Nombre" />
+            </div>
           </div>
-        </div>
-        <div class="col-auto">
-          <div class="form-group">
-            <label>CHPesos</label>
-            <input type="number" class="form-control" placeholder="CHPesos" />
+          <div class="col-auto">
+            <div class="form-group">
+              <label>CHPesos</label>
+              <input type="number" class="form-control" placeholder="CHPesos" />
+            </div>
           </div>
-        </div>
-        <div class="col-auto">
-          <div class="form-group">
-            <label>Bs</label>
-            <input
-              type="number"
-              class="form-control"
-              readonly
-              placeholder="Bs"
-            />
+          <div class="col-auto">
+            <div class="form-group">
+              <label>Bs</label>
+              <input
+                type="number"
+                class="form-control"
+                readonly
+                placeholder="Bs"
+              />
+            </div>
           </div>
-        </div>
-        <div class="col-12">
-          <div class="imagen">
-            <img *ngIf="imagen" [src]="imagen" width="100px" />
-            <i *ngIf="adjuntando" class="fas fa-spinner fa-spin"></i>
-            <small *ngIf="adjuntando" class="text-muted">Adjuntando ...</small>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputFile">Adjuntar comprobante</label>
-            <input
-              (change)="seleccionarImagen($event.target.files[0])"
-              type="file"
-              class="form-control-file"
-            />
-            <input #comprobante type="hidden" />
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label>Seleccione destinatario</label>
-            <div class="input-group">
-              <select
-                class="custom-select"
-                required
+          <div class="col-12">
+            <div class="imagen">
+              <img *ngIf="imagen" [src]="imagen" width="100px" />
+              <i *ngIf="adjuntando" class="fas fa-spinner fa-spin"></i>
+              <small *ngIf="adjuntando" class="text-muted"
+                >Adjuntando ...</small
               >
-                <option value="">Seleccione ...</option>
-                <option value="1">Algo</option>
-              </select>
-              <div class="input-group-append" id="button-addon2">
-                <button type="button" class="btn btn-success btn-des" (click)="formDestinatario = true">
-                  <i class="fas fa-plus"></i> Nuevo
-                </button>
-                <button type="button" class="btn btn-danger btn-des">
-                  <i class="fas fa-minus"></i> Quitar
-                </button>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputFile">Adjuntar comprobante</label>
+              <input
+                (change)="seleccionarImagen($event.target.files[0])"
+                type="file"
+                class="form-control-file"
+              />
+              <input #comprobante type="hidden" />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Seleccione destinatario</label>
+              <div class="input-group">
+                <select
+                  formControlName="id_destinatario"
+                  name="id_destinatario"
+                  class="custom-select"
+                  required
+                >
+                  <option value="">Seleccione ...</option>
+                  <option
+                    *ngFor="let d of _vendedor.destinatarios"
+                    [value]="d.id"
+                    >{{ d.nombre }}</option
+                  >
+                </select>
+                <div class="input-group-append" id="button-addon2">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-des"
+                    (click)="formDestinatario = true"
+                  >
+                    <i class="fas fa-plus"></i> Nuevo
+                  </button>
+                  <button type="button" class="btn btn-danger btn-des">
+                    <i class="fas fa-minus"></i> Quitar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <div *ngIf="formDestinatario" class="destinatario">
+            <app-destinatario-vendedor
+              (idDestinatario)="cambiarDestinatario($event)"
+              (ocultarDestinatario)="ocultar_destinatario($event)"
+            ></app-destinatario-vendedor>
+          </div>
         </div>
-        <div *ngIf="formDestinatario" class="destinatario">
-          <app-destinatario-vendedor (idDestinatario)="cambiarDestinatario($event)" (ocultarDestinatario)="ocultar_destinatario($event)"></app-destinatario-vendedor>
-        </div>
-      </div>
+      </form>
     </div>
 
     <div class="row float-left">

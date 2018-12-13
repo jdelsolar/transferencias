@@ -14,6 +14,8 @@ export class DestinatarioVendedorComponent implements OnInit {
 
   forma: FormGroup;
 
+  cargando: boolean = false;
+
   constructor(
     public vendedor: VendedorComponent,
     public transferencias: TransferenciasService
@@ -40,12 +42,17 @@ export class DestinatarioVendedorComponent implements OnInit {
   }
 
   enviar() {
+    this.cargando = true;
     this.vendedor.vendedor
       .insertDestinatario(this.forma.value)
       .then((resp: any) => {
-        this.idDestinatario.emit(resp.id_destinatario);
+        this.vendedor.vendedor.lista_destinatarios().then( () => {
+          this.idDestinatario.emit(resp.id_destinatario);
+          this.cargando = false;
+        });
       })
       .catch(() => {
+        this.cargando = false;
         swal("Error al grabar el destinatario");
       });
   }

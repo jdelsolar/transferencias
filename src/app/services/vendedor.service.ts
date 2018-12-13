@@ -20,9 +20,15 @@ export class VendedorService {
 
   actual: number;
 
+  destinatarios: any[] = [];
+
   constructor(public http: HttpClient, public router: Router) {
     if (localStorage.getItem("vendedor")) {
       this.vendedor = JSON.parse(localStorage.getItem("vendedor"));
+    }
+
+    if( this.vendedor ) {
+      this.lista_destinatarios();
     }
 
     this.getBloques();
@@ -126,12 +132,30 @@ export class VendedorService {
   insertDestinatario(destinatario: any) {
     const url = URL_SERVICIOS + "/vendedor/insert_destinatario";
     return new Promise((resolve, reject) => {
-      this.http.post(url, destinatario).subscribe((resp: any) => {
-        resolve(resp);
+      this.http.post(url, destinatario).subscribe(
+        (resp: any) => {
+          resolve(resp);
+        },
+        err => {
+          reject();
+        }
+      );
+    });
+  }
+
+  lista_destinatarios() {
+    if (!this.vendedor.id) {
+      return;
+    }
+    const url =
+      URL_SERVICIOS + "/vendedor/lista_destinatarios/" + this.vendedor.id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe( (resp: any) => {
+        this.destinatarios = resp.destinatarios;
+        resolve();
       }, err => {
         reject();
       });
-
     });
   }
 }
