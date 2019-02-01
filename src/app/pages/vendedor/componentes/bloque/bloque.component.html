@@ -37,12 +37,17 @@
             <th scope="row">{{ t.transferencia.id }}</th>
             <td>{{ t.transferencia.nombre_mostrar }}</td>
             <td>{{ t.transferencia.monto }}</td>
-            <td><i class="fa fa-camera"></i></td>
+            <td>
+              <a *ngIf="t.transferencia.imagen" [href]="t.transferencia.imagen | imagen" target="_blank">
+                <i class="fa fa-camera"></i>
+
+              </a>
+            </td>
             <td>
               {{ calcularBs(t.transferencia.monto, t.transferencia.tasa) }}
             </td>
             <td>{{ t.transferencia.tasa }}</td>
-            <td></td>
+            <td>{{ t.transferencia.comision }}</td>
             <td>{{ t.destinatario.nombre }}</td>
             <td>{{ t.destinatario.ci }}</td>
             <td>{{ t.destinatario.banco }}</td>
@@ -54,7 +59,7 @@
       </table>
     </div>
     <div class="forma" [hidden]="_forma">
-      <form [formGroup]="forma">
+      <form ngNativeValidate [formGroup]="forma" (submit)="enviar()">
         <button
           class="btn btn-default btn-sm float-right"
           (click)="ocultarForma()"
@@ -65,19 +70,50 @@
           <div class="col-auto">
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" class="form-control" placeholder="Nombre" />
+              <input
+                formControlName="nombre"
+                name="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Nombre"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="form-group">
+              <label>Correo</label>
+              <input
+                formControlName="correo"
+                name="correo"
+                type="email"
+                class="form-control"
+                placeholder="Nombre"
+                required
+              />
             </div>
           </div>
           <div class="col-auto">
             <div class="form-group">
               <label>CHPesos</label>
-              <input type="number" class="form-control" placeholder="CHPesos" />
+              <input
+                formControlName="monto"
+                name="monto"
+                type="number"
+                (change)="formCalcularBs()"
+                class="form-control"
+                placeholder="CHPesos"
+                required
+                min="10000"
+              />
             </div>
           </div>
           <div class="col-auto">
             <div class="form-group">
               <label>Bs</label>
               <input
+                formControlName="montobs"
+                name="montobs"
                 type="number"
                 class="form-control"
                 readonly
@@ -128,7 +164,11 @@
                   >
                     <i class="fas fa-plus"></i> Nuevo
                   </button>
-                  <button type="button" class="btn btn-danger btn-des">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-des"
+                    (click)="quitarDestinatario()"
+                  >
                     <i class="fas fa-minus"></i> Quitar
                   </button>
                 </div>
@@ -142,17 +182,18 @@
             ></app-destinatario-vendedor>
           </div>
         </div>
+        <button type="submit" class="btn btn-success">Enviar</button>
       </form>
     </div>
 
     <div class="row float-left">
       <div class="col-auto">
         <label class="lbl-ind">Total vendido:</label>
-        <span class="valor">$ xxx</span>
+        <span class="valor">$ {{ bloque.total_chp }}</span>
       </div>
       <div class="col-auto">
         <label class="lbl-ind">Ganancias totales:</label>
-        <span class="valor">$ xxx</span>
+        <span class="valor">$ {{ bloque.total_ganancias }}</span>
       </div>
     </div>
     <div class="float-right">

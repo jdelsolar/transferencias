@@ -27,7 +27,7 @@ export class VendedorService {
       this.vendedor = JSON.parse(localStorage.getItem("vendedor"));
     }
 
-    if( this.vendedor ) {
+    if (this.vendedor) {
       this.lista_destinatarios();
     }
 
@@ -88,10 +88,10 @@ export class VendedorService {
     });
   }
 
-  getTransferenciasPorBloque(bloque: any) {
+  getTransferenciasPorBloque(bloque: any, id_vendedor) {
     return new Promise((resolve, reject) => {
-      const url = URL_SERVICIOS + "/compras/transferencias_por_compra";
-      this.http.post(url, { id_compra: bloque.id }).subscribe(
+      const url = URL_SERVICIOS + "/vendedor/transferencias_por_compra";
+      this.http.post(url, { id_compra: bloque.id, id_vendedor: id_vendedor }).subscribe(
         (resp: any) => {
           resolve(resp);
         },
@@ -109,10 +109,12 @@ export class VendedorService {
           this.bloques = resp.bloques;
           // agregar transferencias a los bloques
           for (let i = 0; i < this.bloques.length; i++) {
-            this.getTransferenciasPorBloque(this.bloques[i]).then((t: any) => {
+            this.getTransferenciasPorBloque(this.bloques[i], this.vendedor.id).then((t: any) => {
               this.bloques[i].transferencias = t.transferencias;
               this.bloques[i].total_chp = t.total_chp;
               this.bloques[i].total_bs = t.total_bs;
+              this.bloques[i].total_ganancias = t.total_ganancias;
+
             });
           }
 
@@ -150,12 +152,68 @@ export class VendedorService {
     const url =
       URL_SERVICIOS + "/vendedor/lista_destinatarios/" + this.vendedor.id;
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe( (resp: any) => {
-        this.destinatarios = resp.destinatarios;
-        resolve();
-      }, err => {
-        reject();
-      });
+      this.http.get(url).subscribe(
+        (resp: any) => {
+          this.destinatarios = resp.destinatarios;
+          resolve();
+        },
+        err => {
+          reject();
+        }
+      );
+    });
+  }
+
+  quitar_destinatario(id_destinatario) {
+    if (!this.vendedor.id) {
+      return;
+    }
+    const url = URL_SERVICIOS + "/vendedor/quitar_destinatario/";
+    return new Promise((resolve, reject) => {
+      this.http.post(url, { id_destinatario: id_destinatario }).subscribe(
+        (resp: any) => {
+          resolve(resp);
+        },
+        err => {
+          reject();
+        }
+      );
+    });
+  }
+
+  agregar_transferencia(id_destinatario, imagen, monto, tasa, nombre, correo, id_vendedor, comision) {
+    // 'id_destinatario' => $this->post('id_destinatario'),
+    //         'imagen' => $this->post('imagen'),
+    //         'monto' => $this->post('monto'),
+    //         'tasa' => $this->post('tasa'),
+    //         'estado' => 'Pendiente',
+    //         'id_usuario' => 0,
+    //         'tipo_pago' => 'Transferencia',
+    //         'nombre_mostrar' => $this->post('nombre'),
+    //         'correo' => $this->post('correo'),
+    //         'id_compra' => $id_compra,
+    //         'id_vendedor' => $this->db->post('id_vendedor'),
+    //         'comision' => $this->db->post('comision')
+    const post = {
+      id_destinatario: id_destinatario, 
+      imagen: imagen, 
+      monto: monto, 
+      tasa: tasa, 
+      nombre: nombre, 
+      correo: correo, 
+      id_vendedor: id_vendedor, 
+      comision: comision
+    };
+    const url = URL_SERVICIOS + "/vendedor/guardar_transferencia/";
+    return new Promise((resolve, reject) => {
+      this.http.post(url, post).subscribe(
+        (resp: any) => {
+          resolve(resp);
+        },
+        err => {
+          reject();
+        }
+      );
     });
   }
 }
@@ -178,4 +236,5 @@ interface Bloque {
   total_chp?: string;
   total_bs?: string;
   transferencias?: any;
+  total_ganancias?: string;
 }

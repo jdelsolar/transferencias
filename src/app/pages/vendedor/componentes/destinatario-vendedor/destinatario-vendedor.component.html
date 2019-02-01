@@ -57,7 +57,11 @@
             required
           >
             <option value="">Seleccione ...</option>
-            <option *ngFor="let b of transferencias.bancos" [value]="b.nombre">{{ b.nombre }}</option>
+            <option
+              *ngFor="let b of transferencias.bancos"
+              [value]="b.nombre"
+              >{{ b.nombre }}</option
+            >
           </select>
         </div>
       </div>
@@ -75,7 +79,14 @@
       <div class="col-sm">
         <div class="form-group">
           <label>Número de cuenta</label>
-          <input type="text" class="form-control" placeholder="" required />
+          <input
+            formControlName="ncuenta"
+            name="ncuenta"
+            type="text"
+            class="form-control"
+            placeholder=""
+            required
+          />
           <small class="form-text text-muted"></small>
         </div>
       </div>
@@ -85,6 +96,8 @@
     <button type="button" class="btn btn-default" (click)="ocultar()">
       Cancelar
     </button>
-    <button type="submit" class="btn btn-success" [disabled]="cargando">Aceptar</button>
+    <button type="submit" class="btn btn-success" [disabled]="cargando">
+      Aceptar
+    </button>
   </div>
 </form>

@@ -14,17 +14,19 @@ export class BloqueComponent implements OnInit {
 
   _forma = true;
 
-  // @ViewChild("comprobante") comprobante: ElementRef;
+  @Input() tasa: string = "";
+
+  @Input() comision: string = "";
 
   imagen: string = null;
   imagenSubir: File;
   comprobante: string = "";
   adjuntando: boolean = false;
+  cargando = false;
 
   formDestinatario: boolean = false;
 
   forma: FormGroup;
-
 
   constructor(
     public _transferencias: TransferenciasService,
@@ -34,8 +36,21 @@ export class BloqueComponent implements OnInit {
 
   ngOnInit() {
     this.forma = new FormGroup({
-      id_destinatario: new FormControl("", Validators.required)
+      id_destinatario: new FormControl("", Validators.required),
+      nombre: new FormControl("", Validators.required),
+      correo: new FormControl("", Validators.email),
+      monto: new FormControl("10000", [Validators.required]),
+      montobs: new FormControl("")
     });
+    if (this.tasa != "") {
+      this.formCalcularBs();
+    }
+  }
+
+  formCalcularBs() {
+    const monto = this.forma.get("monto").value;
+    const tasa = this.tasa;
+    this.forma.get("montobs").setValue(this.calcularBs(monto, tasa));
   }
 
   ocultarForma() {
@@ -85,14 +100,70 @@ export class BloqueComponent implements OnInit {
     }
   }
 
-  ocultar_destinatario( event ) {
+  ocultar_destinatario(event) {
     this.formDestinatario = event;
   }
 
   cambiarDestinatario(event: any) {
-    console.log( event );
     this.forma.get("id_destinatario").setValue(event);
     this.formDestinatario = false;
   }
 
+  quitarDestinatario() {
+    if (!confirm("Está seguro de quitar el destinatario?")) {
+      return;
+    }
+    const id_destinatario = this.forma.get("id_destinatario").value;
+    console.log(id_destinatario);
+
+    this._vendedor
+      .quitar_destinatario(id_destinatario)
+      .then(() => {
+        this._vendedor.lista_destinatarios().then(() => {
+          this.forma.get("id_destinatario").setValue("");
+        });
+      })
+      .catch(() => {
+        swal("Error al quitar el destinatario");
+      });
+  }
+
+  enviar() {
+    // id_destinatario, imagen, monto, tasa, nombre, correo, id_vendedor, comision
+
+    if (!this.forma.valid) {
+      return;
+    }
+    if(!confirm("Está seguro que desea agregar la transferencia?")) {
+      return;
+    }
+    const id_destinatario = this.forma.get("id_destinatario").value;
+    const imagen = this.comprobante;
+    const monto = this.forma.get("monto").value;
+    const tasa = this.tasa;
+    const nombre = this.forma.get("nombre").value;
+    const correo = this.forma.get("correo").value;
+    const id_vendedor = this._vendedor.vendedor.id;
+    const comision = this.comision;
+
+    this.cargando = true;
+    this._vendedor
+      .agregar_transferencia(
+        id_destinatario,
+        imagen,
+        monto,
+        tasa,
+        nombre,
+        correo,
+        id_vendedor,
+        comision
+      )
+      .then(() => {
+        this.cargando = false;
+        this._vendedor.getBloques();
+      })
+      .catch(() => {
+        swal("Error al agregar una transferencia");
+      });
+  }
 }

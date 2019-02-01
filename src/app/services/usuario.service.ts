@@ -13,7 +13,16 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
     if (localStorage.getItem("usuario")) {
       this.usuario = JSON.parse(localStorage.getItem("usuario"));
+      this.validaToken();
     }
+  }
+
+  validaToken() {
+    this.http.get(this.api + 'usuario/valida_token/' + this.usuario.token).subscribe( (resp: any) => {
+      if( !resp.respuesta ) {
+        this.cerrarSession();
+      }
+    });
   }
 
   public cerrarSession() {
