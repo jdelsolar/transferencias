@@ -12,11 +12,11 @@ export class ParametrosService {
 
   observarTasa(): Observable<string> {
     return new Observable(observer => {
-      this.obtenerTasa().then((resp: string) => {
+      this.obtenerTasa().then((resp: any) => {
         observer.next(resp);
       });
       const intervalo = setInterval(() => {
-        this.obtenerTasa().then((resp: string) => {
+        this.obtenerTasa().then((resp: any) => {
           observer.next(resp);
         });
       }, 30000);
@@ -29,7 +29,7 @@ export class ParametrosService {
       this.http.get(url).subscribe(
         (resp: any) => {
           // this.tasa = resp.tasa;
-          resolve(resp.tasa);
+          resolve(resp);
         },
         err => reject()
       );

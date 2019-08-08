@@ -3,6 +3,9 @@ import { UsuarioService, Usuario } from "../../services/usuario.service";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
+import swal from "sweetalert";
+import { SubirArchivoService } from "src/app/services/subir-archivo.service";
+
 @Component({
   selector: "app-registro",
   templateUrl: "./registro.component.html",
@@ -15,7 +18,11 @@ export class RegistroComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor(public _usuario: UsuarioService, private router: Router) {}
+  constructor(
+    public _usuario: UsuarioService,
+    private router: Router,
+    public _subir: SubirArchivoService
+  ) {}
 
   ngOnInit() {
     this.forma = new FormGroup({
@@ -29,8 +36,29 @@ export class RegistroComponent implements OnInit {
         Validators.minLength(6)
       ]),
       ci: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      telefono: new FormControl(null)
+      telefono: new FormControl(null),
+      foto: new FormControl(null, Validators.required)
     });
+  }
+
+
+  seleccionarImagen(archivo: File) {
+    if (archivo) {
+      this._subir
+        .subirArchivo(archivo)
+        .then((resp: any) => {
+          if (resp.respuesta) {
+            let nombreArchivo = resp.mensaje.upload_data.file_name;
+            this.forma.controls['foto'].setValue(nombreArchivo);
+            console.log("archivo subido", nombreArchivo);
+          } else {
+            swal("Error al subir el archivo");
+          }
+        })
+        .catch(err => {
+          swal("Error al subir el archivo");
+        });
+    }
   }
 
   enviar() {
@@ -51,7 +79,8 @@ export class RegistroComponent implements OnInit {
           swal(
             "Se ha completado su registro, ya puede ingresar a 123depósitos."
           );
-          this.router.navigate(["/login"]);
+          // this.router.navigate(["/login"]);
+          this.router.navigateByUrl("/pais/" + this.usuario.pais);
         }
       },
       err => {

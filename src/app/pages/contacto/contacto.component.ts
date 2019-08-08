@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ContactoService } from '../../services/contacto.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-contacto',
@@ -11,7 +12,7 @@ export class ContactoComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor( public _contacto:ContactoService ) { }
+  constructor( public _contacto:ContactoService, public _usuario: UsuarioService ) { }
 
   ngOnInit() {
 

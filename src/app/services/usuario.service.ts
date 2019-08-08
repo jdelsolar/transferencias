@@ -18,7 +18,7 @@ export class UsuarioService {
   }
 
   validaToken() {
-    this.http.get(this.api + 'usuario/valida_token/' + this.usuario.token).subscribe( (resp: any) => {
+    this.http.get(this.api + '/usuario/valida_token/' + this.usuario.token).subscribe( (resp: any) => {
       if( !resp.respuesta ) {
         this.cerrarSession();
       }
@@ -88,4 +88,5 @@ export interface Usuario {
   token?: any;
   ci?: string;
   telefono?: string;
+  foto?: string;
 }

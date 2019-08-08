@@ -15,10 +15,10 @@ import { FinalizadoComponent } from "./pages/finalizado/finalizado.component";
 import { VendedorComponent } from "./pages/vendedor/vendedor.component";
 import { LoginVendedorComponent } from "./pages/vendedor/componentes/login-vendedor/login-vendedor.component";
 
-
 const app_routes: Routes = [
-  { path: 'inicio', component: InicioComponent },
-  { path: 'login', component: LoginComponent },
+  { path: "inicio", component: InicioComponent },
+  { path: "pais/:pais", component: InicioComponent },
+  { path: "login", component: LoginComponent },
   { path: "registro", component: RegistroComponent },
   { path: "compania", component: CompaniaComponent },
   { path: "como", component: ComoComponent },
@@ -30,13 +30,16 @@ const app_routes: Routes = [
   { path: "finalizado", component: FinalizadoComponent },
   { path: "vendedor", component: VendedorComponent },
   { path: "login-vendedor", component: LoginVendedorComponent },
-  { path: "**", pathMatch: "full", redirectTo: 'inicio' }
+  { path: "**", pathMatch: "full", redirectTo: "inicio" }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(app_routes, { useHash: true })],
-  exports: [
-    RouterModule
-  ]
+  imports: [
+    RouterModule.forRoot(app_routes, {
+      useHash: true,
+      onSameUrlNavigation: "reload"
+    })
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

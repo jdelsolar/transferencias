@@ -13,6 +13,9 @@ export class InicioComponent implements OnInit {
 
   ngOnInit() {
     init_collapse();
+
+
+    
   }
 
 }

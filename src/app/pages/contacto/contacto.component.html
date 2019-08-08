@@ -4,7 +4,11 @@
     <div class="col-md-6 marco p-4">
 
       <div class="whatsapp">
-        Escríbenos a nuestro <span class="font-weight-bold">WhatsApp +56 9 3568 9629 (solo mensajes)</span>
+        Escríbenos a nuestro <span class="font-weight-bold">WhatsApp 
+          <span *ngIf="_usuario.usuario.pais === undefined || _usuario.usuario.pais === 'chile'" >+56 9 3568 9629</span>
+          <span *ngIf="_usuario.usuario.pais === 'colombia'">+57 32 1758 4159</span>
+          <span *ngIf="_usuario.usuario.pais === 'argentina'">+54 926 1630 0249</span>
+           (solo mensajes)</span>
       </div>
       <div class="texto-izquierdo">
         También nos puedes contactar a través del siguiente formulario:

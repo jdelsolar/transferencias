@@ -27,3 +27,31 @@ form {
     font-size: 12pt;
     color: black;
 }
+.cuadro-tasa {
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    border-color: #a7a1b7;
+    width: 70px;
+}
+
+.cuadro-tasa .num-tasa {
+    display: block;
+    font-size: 12pt;
+}
+.cuadro-tasa .desc-tasa {
+    display: block;
+    font-size: 14pt;
+    color: #00aeeb;
+}
+
+.cuadro-tasa .bandera img {
+    width: 50px;
+}
+
+.cuadro-tasa .bandera {
+    height: 15px;
+    position: relative;
+    left: -25px;
+    top: -25px;
+}

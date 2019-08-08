@@ -3,16 +3,13 @@
   <div class="row">
     <div class="col-md-6 marco p-4">
 
-
-
-
       <form ngNativeValidate [formGroup]="forma" (submit)="enviar()">
         <div class="registro" *ngIf="!_usuario.usuario.id_usuario">
           <h2>Registro de Usuario</h2>
           <div class="form-group ">
             <label>Correo electrónico</label>
-            <input formControlName="correo" name="correo" type="email" class="form-control " placeholder="Ingrese Correo"
-              required>
+            <input formControlName="correo" name="correo" type="email" class="form-control "
+              placeholder="Ingrese Correo" required>
           </div>
           <div class="form-group ">
             <label>Contraseña</label>
@@ -22,13 +19,13 @@
           <hr>
           <div class="form-group ">
             <label>Apellido paterno</label>
-            <input formControlName="paterno" name="paterno" type="text" class="form-control " placeholder="Apellido paterno"
-              required>
+            <input formControlName="paterno" name="paterno" type="text" class="form-control "
+              placeholder="Apellido paterno" required>
           </div>
           <div class="form-group ">
             <label>Apellido materno</label>
-            <input formControlName="materno" name="materno" type="text" class="form-control " placeholder="Apellido materno"
-              required>
+            <input formControlName="materno" name="materno" type="text" class="form-control "
+              placeholder="Apellido materno" required>
           </div>
           <div class="form-group ">
             <label>Nombres</label>
@@ -40,14 +37,27 @@
             <input formControlName="ci" name="ci" type="text" class="form-control " placeholder="RUT o CI" required
               minlength="3">
           </div>
+          <div class="form-group">
+            <label for="archivo">Imagen documento de identidad</label>
+            <input (change)="seleccionarImagen($event.target.files[0])" type="file" class="form-control-file" id="archivo"
+              aria-describedby="fileHelp" required>
+            <input type="hidden" formControlName="foto" name="foto">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" [style.width]="_subir.porcentaje + '%'" [attr.aria-valuenow]="_subir.porcentaje" aria-valuemin="0"
+                aria-valuemax="100">{{ _subir.porcentaje }} %</div>
+            </div>
+            <small id="fileHelp" class="form-text text-muted">El archivo debe ser una imagen jpeg, gif o png. </small>
+          </div>
           <div class="form-group ">
             <label>Teléfono</label>
-            <input formControlName="telefono" name="telefono" type="tel" class="form-control " placeholder="Teléfono" >
+            <input formControlName="telefono" name="telefono" type="tel" class="form-control " placeholder="Teléfono">
           </div>
           <div class="form-group ">
             <label>País</label>
             <select formControlName="pais" name="pais" class="form-control" required>
               <option value="Chile">Chile</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
 
             </select>
           </div>

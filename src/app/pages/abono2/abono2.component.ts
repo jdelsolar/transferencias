@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy
+} from "@angular/core";
 import { UsuarioService } from "../../services/usuario.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import {
@@ -10,6 +16,8 @@ import { ParametrosService } from "../../services/parametros.service";
 import { SubirArchivoService } from "../../services/subir-archivo.service";
 import { Router } from "@angular/router";
 import { PagosService } from "../../services/pagos.service";
+
+import swal from 'sweetalert';
 
 declare function crear_boton(resp);
 
@@ -49,13 +57,28 @@ export class Abono2Component implements OnInit, OnDestroy {
       misDestinatarios: new FormControl("", Validators.required)
     });
 
-    this.subscribe = this._parametros
-      .observarTasa()
-      .subscribe((resp: string) => {
-        console.log(resp);
-        this.forma.get("tasa").setValue(resp);
-        this.calcular();
-      });
+    this.subscribe = this._parametros.observarTasa().subscribe((resp: any) => {
+      console.log(resp);
+      switch (this._usuario.usuario.pais) {
+        case "Chile":
+          this.forma.get("tasa").setValue(resp.tasa);
+
+          break;
+        case "Argentina":
+          this.forma.get("tasa").setValue(resp.argentina);
+
+          break;
+        case "Colombia":
+          this.forma.get("tasa").setValue(resp.colombia);
+
+          break;
+        default:
+          this.forma.get("tasa").setValue(resp.tasa);
+
+          break;
+      }
+      this.calcular();
+    });
   }
 
   ngOnDestroy() {
@@ -199,17 +222,18 @@ export class Abono2Component implements OnInit, OnDestroy {
   }
 
   pagoKhipu() {
-    if ( !this.forma.valid ) {
+    if (!this.forma.valid) {
       swal("Faltan campos por completar");
       return;
     }
-    this._pagos.iniciarPagoKhipu(
-      this.forma.get("misDestinatarios").value,
-      this.forma.get("monto").value,
-      this.forma.get("tasa").value
-    ).then( (resp: any) => {
-      crear_boton(resp);
-    });
+    this._pagos
+      .iniciarPagoKhipu(
+        this.forma.get("misDestinatarios").value,
+        this.forma.get("monto").value,
+        this.forma.get("tasa").value
+      )
+      .then((resp: any) => {
+        crear_boton(resp);
+      });
   }
-
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-como',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComoComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _us: UsuarioService) { }
 
   ngOnInit() {
   }

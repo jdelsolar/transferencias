@@ -12,7 +12,7 @@
   <div *ngIf="_usuario.usuario.id_usuario" class="container fondo-blanco p-3">
     <h4>Deposito a cuenta corriente</h4>
     <p>Debes realizar un depósito en nuestra cuenta corriente.</p>
-    <div class="alert alert-dismissible alert-primary">
+    <div class="alert alert-dismissible alert-primary" *ngIf="_usuario.usuario?.pais === 'Chile'">
       <ul class=" sociales">
         <li class="">GLOBAL VYM</li>
         <li class="">N° 73531560</li>
@@ -22,19 +22,22 @@
       </ul>
       <!-- <img class="img-fluid global" src="assets/img/global.png" alt=""> -->
     </div>
+    <div class="alert alert-dismissible alert-primary" *ngIf="_usuario.usuario?.pais === 'Argentina'">
+      Pida nuestra cuenta en el <a href="https://wa.me/5492616300249" target="_blank"> <i class="fab fa-whatsapp"></i>
+        Whatsapp +54 9 26163 00249</a>
+    </div>
+    <div class="alert alert-dismissible alert-primary" *ngIf="_usuario.usuario?.pais === 'Colombia'">
+      Pida nuestra cuenta en el <a href="https://wa.me/573217584159" target="_blank"> <i class="fab fa-whatsapp"></i>
+        Whatsapp +57 3 21758 4159</a>
+    </div>
+    
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="enviar()">
       <div class="form-group">
         <label for="exampleInputFile">Adjuntar comprobante</label>
         <div><img *ngIf="imagen" [src]="imagen" width="100px" /></div>
-        <input
-          type="file"
-          (change)="seleccionarImagen($event.target.files[0])"
-          class="form-control-file"
-          aria-describedby="fileHelp"
-        />
-        <small id="fileHelp" class="form-text text-muted"
-          >Adjunte el comprobante de depósito.</small
-        >
+        <input type="file" (change)="seleccionarImagen($event.target.files[0])" class="form-control-file"
+          aria-describedby="fileHelp" />
+        <small id="fileHelp" class="form-text text-muted">Adjunte el comprobante de depósito.</small>
       </div>
 
       <div class="alert alert-dismissible alert-secondary">
@@ -42,41 +45,22 @@
           <div class="col-sm">
             <div class="form-group">
               <label>Monto a transferir</label>
-              <input
-                (change)="calcular()"
-                formControlName="monto"
-                name="monto"
-                type="number"
-                class="form-control"
-                min="10000"
-                required
-              />
+              <input (change)="calcular()" formControlName="monto" name="monto" type="number" class="form-control"
+                min="10000" required />
             </div>
           </div>
           <div class="col-sm">
             <div class="form-group">
               <label>Tasa de conversión (Bs)</label>
-              <input
-                formControlName="tasa"
-                name="tasa"
-                type="number"
-                class="form-control"
-                placeholder="Tasa"
-                required
-              />
+              <input formControlName="tasa" name="tasa" type="number" class="form-control" placeholder="Tasa"
+                required />
             </div>
           </div>
           <div class="col-sm">
             <div class="form-group">
               <label>Monto final (Bs)</label>
-              <input
-                formControlName="montofinal"
-                name="montofinal"
-                type="number"
-                class="form-control"
-                placeholder=""
-                required
-              />
+              <input formControlName="montofinal" name="montofinal" type="number" class="form-control" placeholder=""
+                required />
             </div>
           </div>
         </div>
@@ -85,33 +69,17 @@
       <div class="form-group">
         <label>Seleccione destinatario</label>
         <div class="input-group">
-          <select
-            formControlName="misDestinatarios"
-            name="misDestinatarios"
-            class="custom-select"
-            aria-describedby="button-addon2"
-            required
-          >
+          <select formControlName="misDestinatarios" name="misDestinatarios" class="custom-select"
+            aria-describedby="button-addon2" required>
             <option value="">Seleccione ...</option>
-            <option
-              *ngFor="let destinatario of _transferencias.misDestinatarios"
-              [value]="destinatario.id"
-              >{{ destinatario.nombre }}</option
-            >
+            <option *ngFor="let destinatario of _transferencias.misDestinatarios" [value]="destinatario.id">
+              {{ destinatario.nombre }}</option>
           </select>
           <div class="input-group-append" id="button-addon2">
-            <button
-              type="button"
-              class="btn btn-success btn-des"
-              (click)="abrirModal()"
-            >
+            <button type="button" class="btn btn-success btn-des" (click)="abrirModal()">
               <i class="fas fa-plus"></i> Nuevo
             </button>
-            <button
-              (click)="quitar()"
-              type="button"
-              class="btn btn-danger btn-des"
-            >
+            <button (click)="quitar()" type="button" class="btn btn-danger btn-des">
               <i class="fas fa-minus"></i> Quitar
             </button>
           </div>
@@ -121,28 +89,16 @@
         Ya pagué con <br />
         transferencia electrónica
       </button>
-      <button type="button" class="btn boton" (click)="pagoKhipu()">
-        <img
-          src="https://s3.amazonaws.com/static.khipu.com/buttons/2015/200x75-transparent.png"
-          id="pay-button"
-        />
+      <button type="button" class="btn boton" (click)="pagoKhipu()" *ngIf="_usuario.usuario?.pais === 'Chile'">
+        <img src="https://s3.amazonaws.com/static.khipu.com/buttons/2015/200x75-transparent.png" id="pay-button" />
       </button>
     </form>
   </div>
 
-  <button
-    #btnModalDestinatarios
-    [hidden]="true"
-    type="button"
-    data-toggle="modal"
-    data-target="#modalDestinatarios"
-  >
+  <button #btnModalDestinatarios [hidden]="true" type="button" data-toggle="modal" data-target="#modalDestinatarios">
     Launch demo modal
   </button>
   <div class="modal" id="modalDestinatarios">
-    <app-destinatario
-      (cerrar)="cerrarModal()"
-      (destinatario)="modalDestinatario($event)"
-    ></app-destinatario>
+    <app-destinatario (cerrar)="cerrarModal()" (destinatario)="modalDestinatario($event)"></app-destinatario>
   </div>
 </div>

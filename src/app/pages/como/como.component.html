@@ -47,46 +47,56 @@
         </div>
         <div class="texto">
           A. Realiza un depósito a nuesta cuenta corriente: <br />
-          Razón social:
-          <span class="text-black-50 font-weight-bold">GLOBAL VYM SPA</span>
-          <br />
-          Banco: <span class="text-black-50 font-weight-bold">Santander</span>
-          <br />
-          Cuenta corriente:
-          <span class="text-black-50 font-weight-bold">73531560</span> <br />
-          RUT: <span class="text-black-50 font-weight-bold">76.944.961-2</span>
-
-          <!--
-            <ul class="list-unstyled sociales" >
-              <li>
-                <a href="https://www.Instagram.com/123depositos/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-              </li>
-              <li>
-                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-              </li>
-              <li>
-                <a href="https://wa.me/56935689629" target="_blank"><i class="fab fa-whatsapp"></i> Whatsapp</a>
-              </li>
-              <li>
-                <a href="mailto:contacto@123depositos.com" target="_blank"><i class="far fa-envelope"></i> contacto@123depositos.com</a>
-              </li>
-            </ul>
-          -->
+          <div
+            *ngIf="
+              _us.usuario.pais === 'Chile' || _us.usuario.pais === undefined
+            "
+          >
+            Razón social:
+            <span class="text-black-50 font-weight-bold">GLOBAL VYM SPA</span>
+            <br />
+            Banco: <span class="text-black-50 font-weight-bold">Santander</span>
+            <br />
+            Cuenta corriente:
+            <span class="text-black-50 font-weight-bold">73531560</span> <br />
+            RUT:
+            <span class="text-black-50 font-weight-bold">76.944.961-2</span>
+          </div>
+          <div *ngIf="_us.usuario.pais === 'Colombia'">
+            Solicita la cuenta a nuesto whatsapp
+            <i class="fab fa-whatsapp"></i> +57 32 1758 4159
+          </div>
+          <div *ngIf="_us.usuario.pais === 'Argentina'">
+            Solicita la cuenta a nuesto whatsapp
+            <i class="fab fa-whatsapp"></i> +54 926 1630 0249
+          </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="imagen">
           <img src="assets/img/como/paso2-1.png" alt="Paso2" />
         </div>
-        <div class="texto">
+        <div
+          class="texto"
+          *ngIf="_us.usuario.pais === 'Chile' || _us.usuario.pais === undefined"
+        >
           B. O realiza tu abono a la cuenta empresa por transferencia en
           <a
             href="https://www.santander.cl/sucursales_santander/sucursales/index.asp"
             target="_blank"
             class="text-black-50 font-weight-bold"
-            >sucursales banco Santander <i class="fa fa-map-marker" aria-hidden="true"></i> </a
-          >
-          <img src="assets/img/work-cafe-logo-black.png" alt="">
+            >sucursales banco Santander
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+          </a>
+          <img src="assets/img/work-cafe-logo-black.png" alt="" />
+        </div>
+        <div
+          class="texto"
+          *ngIf="
+            _us.usuario.pais === 'Colombia' || _us.usuario.pais === 'Argentina'
+          "
+        >
+          B. O realiza tu abono a la cuenta de nuestra empresa.
         </div>
       </div>
       <div class="col-sm">
@@ -95,8 +105,22 @@
         </div>
         <div class="texto">
           C. Envía el comprobante del depósito a
-          <span class="text-black-50 font-weight-bold"
+          <span
+            class="text-black-50 font-weight-bold"
+            *ngIf="
+              _us.usuario.pais === undefined || _us.usuario.pais === 'Chile'
+            "
             >contacto@123depositos.com</span
+          >
+          <span
+            class="text-black-50 font-weight-bold"
+            *ngIf="_us.usuario.pais === 'Colombia'"
+            >contacto_col@123depositos.com</span
+          >
+          <span
+            class="text-black-50 font-weight-bold"
+            *ngIf="_us.usuario.pais === 'Argentina'"
+            >contacto_arg@123depositos.com</span
           >
         </div>
       </div>

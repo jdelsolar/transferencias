@@ -8,7 +8,12 @@ import { URL_SERVICIOS } from '../../config';
 })
 export class SubirArchivoService {
 
-  constructor() { }
+
+  porcentaje: number = 0;
+
+  constructor() {
+
+   }
 
   subirArchivo( archivo: File ) {
 
@@ -18,6 +23,15 @@ export class SubirArchivoService {
       let xhr = new XMLHttpRequest();
   
       formdata.append( 'archivo', archivo, archivo.name );
+
+      // porcentaje de carga
+      let porcentaje = 0;
+      xhr.upload.addEventListener("progress", (event) => {
+        porcentaje = Math.round( (event.loaded / event.total) * 100 );
+        //console.log(porcentaje);
+        this.porcentaje = porcentaje;
+      });
+
   
       xhr.onreadystatechange = function() {
         if ( xhr.readyState === 4 ) {
